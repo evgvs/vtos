@@ -4,5 +4,5 @@
 
 ```
 # ./env.sh
-(build_env) # make
+(vtos_env) # make
 ```
