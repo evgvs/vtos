@@ -19,7 +19,7 @@ void display_clear( int colour) //clear
  		0 	Black
 		1 	Dark blue
 		2 	Green
-		3 	Bkue
+		3 	Blue
 		4 	Red
 		5 	Violet
 		6 	Brown
