@@ -1,6 +1,6 @@
-#include "./drv/video.h"
+#include "drv/video.h"
 
-void kernel_main(void) 
+void kernel_main(void)
 {
  	display_clear(0x00);
 
@@ -115,11 +115,4 @@ void kernel_main(void)
 	tty_printf(0x0F, "\n");
 	tty_printf(0x0F, "\n");
 	tty_printf(0xE2, "     vtOS");
-
-
-
-
-
-	
-
 } 
