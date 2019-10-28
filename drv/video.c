@@ -15,7 +15,6 @@ void display_clear(int color) //clear
 		video[i] = color;
 }
 
-<<<<<<< HEAD
  	/*
  		0 	Black
 		1 	Dark blue
