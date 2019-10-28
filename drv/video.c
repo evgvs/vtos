@@ -16,30 +16,33 @@ void display_clear( int colour) //clear
 }
 
  	/*
- 		0 	Черный
-		1 	Синий
-		2 	Зеленый
-		3 	Голубой
-		4 	Красный
-		5 	Фиолетовый
+ 		0 	Black
+		1 	Dark blue
+		2 	Green
+		3 	Bkue
+		4 	Red
+		5 	Violet
 		6 	Brown
-		7 	Серый
-		8 	Темно-серый
-		9 	Светло-синий
-		A 	Светло-зеленый
-		B 	Светло-голубой
-		C 	Светло-красный
-		D 	Розовый
-		E 	Желтый
-		F 	Белый 
+		7 	Gray
+		8 	Navy
+		9 	Medium blue
+		A 	Light green
+		B 	Light blue
+		C 	Light red
+		D 	Pink
+		E 	Yellow
+		F 	White
 
-		функции tty_printf необходимо передать два параметра - цвет 
-		и саму строку для вывода на экран. Цвет - шестнадцатеричное 
-		число 0xYZ, где Y - номер цвета фона, а Z - номер цвета 
-		текста. Например:
+		tty_printf takes 2 arguments - color 
+		and string with text, which you want 
+		to print. Color - hexadecimal number 0xYZ,
+	       	where Y - background color number, Z - 
+		text color number.
 
-		0x01 - черный фон, синий текст
-		0xe4 - желтый фон, красный текст
+		For example:
+
+		0x01 - Black background, Dark blue text.
+		0xe4 - Yellow background, Red text.
 
 		tty_printf(0x01, "blue on black\n");
  		tty_printf(0xe4, "red on yellow\n");
