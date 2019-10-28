@@ -1,6 +1,6 @@
-#include "./drv/video.h"
+#include "drv/video.h"
 
-void kernel_main(void) 
+void kernel_main(void)
 {
  	display_clear(0x00);
 
