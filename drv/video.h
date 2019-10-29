@@ -1,2 +1,2 @@
-void display_clear( int colour);
-void tty_printf( int colour, const char *string );
+void display_clear(int color);
+void tty_printf(int color, const char *string);
