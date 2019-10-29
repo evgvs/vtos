@@ -9,29 +9,28 @@ int cursor_current_line = 0;
 
 volatile char *video = (volatile char*)0xB8000; //video memory
 
-void display_clear(int color) //clear
-{
+void display_clear(int color) { //clear
 	for (int i = 0; i < 2000; i++)
 		video[i] = color;
 }
 
- 	/*
- 		0 	Black
-		1 	Dark blue
-		2 	Green
-		3 	Blue
-		4 	Red
-		5 	Violet
-		6 	Brown
-		7 	Gray
-		8 	Navy
-		9 	Medium blue
-		A 	Light green
-		B 	Light blue
-		C 	Light red
-		D 	Pink
-		E 	Yellow
-		F 	White
+	/*
+		0	Black
+		1	Dark blue
+		2	Green
+		3	Blue
+		4	Red
+		5	Violet
+		6	Brown
+		7	Gray
+		8	Navy
+		9	Medium blue
+		A	Light green
+		B	Light blue
+		C	Light red
+		D	Pink
+		E	Yellow
+		F	White
 
 		tty_printf takes 2 arguments - color 
 		and string with text, which you want 
@@ -48,16 +47,12 @@ void display_clear(int color) //clear
 		tty_printf(0xe4, "red on yellow\n");
 	*/
 
-void tty_printf(int color, const char *string)
-{
-	while( *string != 0 )
-	{
-		if( *string =='\n')
-		{
+void tty_printf(int color, const char *string) {
+	while( *string != 0 ) {
+		if( *string =='\n') {
 			cursor_current_line++;
 			cursor_pos = cursor_current_line * 80 * 2;
 		}
-		
 		video[cursor_pos++] = *string++;
 		video[cursor_pos++] = color;
 	}

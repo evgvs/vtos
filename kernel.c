@@ -1,23 +1,22 @@
 #include "drv/video.h"
 
-void kernel_main(void)
-{
- 	display_clear(0x00);
+void kernel_main(void) {
+	display_clear(0x00);
 
 	int xxx = 0;
-	while ( xxx < 39 ){
+	while (xxx < 39) {
 		tty_printf(0x0F, "M");
 		xxx++;
 	}
 	tty_printf(0x0F, "\n");
 	xxx=0;
-	while ( xxx < 6 ){
+	while (xxx < 6) {
                 tty_printf(0x0F, "M");
 		xxx++;
         }
 	tty_printf(0x0F, "E");
 	xxx=0;
-	while ( xxx < 5 ){
+	while (xxx < 5) {
                 tty_printf(0x02, "0");
                 xxx++;
         }
@@ -50,7 +49,7 @@ void kernel_main(void)
 	tty_printf(0x0F, "XMMM");
 	tty_printf(0x06, "R");
 	tty_printf(0x0F, "XMMMMMMMMMMMMMMMMMM");
-        tty_printf(0x0F, "\n");
+	tty_printf(0x0F, "\n");
 	tty_printf(0x0F, "MMMMMMMMMMMM");
 	tty_printf(0x06, "O");
 	tty_printf(0x0F, "NMMMMW");
@@ -115,4 +114,4 @@ void kernel_main(void)
 	tty_printf(0x0F, "\n");
 	tty_printf(0x0F, "\n");
 	tty_printf(0xE2, "     vtOS");
-} 
+}
