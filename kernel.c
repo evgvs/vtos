@@ -15,7 +15,7 @@ void kernel_main(void)
                 tty_printf(0x0F, "M");
 		xxx++;
         }
-	tty_printf(0x0F, 'E');
+	tty_printf(0x0F, "E");
 	xxx=0;
 	while ( xxx < 5 ){
                 tty_printf(0x02, "0");
