@@ -21,7 +21,8 @@ void kernel_init(void) {
     interrupt_enable_all();
     tty_printf("interrupts enabled\n", 0x02);
 
-	tty_printf("vtOS 0.2 - KEYBOARD ALPHA TEST \n", 0x0f);
+	tty_printf(vtinfo_string(), 0x0f);
+	tty_printf('\n', 0x0f);
 	shell();
 	/// TODO: rewrite
 	/* int xxx = 0;
