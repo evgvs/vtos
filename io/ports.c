@@ -38,12 +38,12 @@ inline void outl(uint16_t port, uint32_t val)
 
 inline uint64_t rdtsc()
 {
-    uint64_t ret;
-    asm volatile ( "rdtsc" : "=A"(ret) );
-    return ret;
+	uint64_t ret;
+	asm volatile ( "rdtsc" : "=A"(ret) );
+	return ret;
 }
 
 inline void insl(unsigned short port, unsigned int buffer, unsigned long count)
 {
-asm("cld; rep; insl" :: "D" (buffer), "d" (port), "c" (count));
+	asm("cld; rep; insl" :: "D" (buffer), "d" (port), "c" (count));
 }

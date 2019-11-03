@@ -18,11 +18,11 @@ void kernel_init(void) {
 	tty_printf("interrupts disabled\n", 0x02);
 
 	tty_printf("initializing keyboard...\n", 0x0f);
-    keyboard_install();
-    tty_printf("keyboard initialized\n", 0x02);
+	keyboard_install();
+	tty_printf("keyboard initialized\n", 0x02);
 
-    interrupt_enable_all();
-    tty_printf("interrupts enabled\n", 0x02);
+	interrupt_enable_all();
+	tty_printf("interrupts enabled\n", 0x02);
 
 	tty_printf(vtinfo_string(), 0x0f);
 	tty_printf('\n', 0x0f);
@@ -178,10 +178,10 @@ void shell ()
 			tty_printf(vtinfo_string(), 0x0f);
 		}
 		if ( strcmp ( cmd , "logo" ) == 0 )
-                {                                                                             print_logo(0);
-                }
+		{                                                                             print_logo(0);
+		}
 		if ( strcmp ( cmd , "neofetch" ) == 0 | strcmp ( cmd , "logoi" ) == 0)
-                {                                                                             print_logo(1);                                                }
+		{                                                                             print_logo(1);                                                }
 		if ( strcmp ( cmd , "clear" ) == 0 )
 		{
 			display_clear(0x00);
@@ -189,14 +189,12 @@ void shell ()
 		else
 		{
 			tty_printf("error", 0x04);
-		       	tty_printf(": command '", 0x0F); 
+			tty_printf(": command '", 0x0F); 
 			tty_printf( cmd , 0x0F); 
 			tty_printf("' not found.\n", 0x0F);
 		}
 		cmd="";
 		//
 		//fi
-
 	}
-	
 }
