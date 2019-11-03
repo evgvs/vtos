@@ -10,7 +10,7 @@ int cursor_current_line = 0;
 volatile char *video = (volatile char*)0xB8000; //video memory
 
 void display_clear(int color) { //clear
-	for (int i = 0; i < 2000; i++)
+	for (int i = 0; i < TERM_SIZE_Y * TERM_SIZE_X; i++)
 		video[i] = color;
 }
 
@@ -48,9 +48,9 @@ void display_clear(int color) { //clear
 	*/
 void tty_printf(const char *string, int color) {
 	while( *string != 0 ) {
-		if( *string =='\n') {
+		if( *string == '\n') {
 			cursor_current_line++;
-			cursor_pos = cursor_current_line * 80 * 2;
+			cursor_pos = cursor_current_line * TERM_SIZE_X * 2;
 			return;
 		}
 		video[cursor_pos++] = *string++;
@@ -64,8 +64,6 @@ void tty_printchar(char char1, int color) {
 		cursor_pos = cursor_current_line * 80 * 2;
 		return;
 	}
-
 	video[cursor_pos++] = char1;
 	video[cursor_pos++] = color;
-	
 }

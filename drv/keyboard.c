@@ -186,6 +186,7 @@ char * keyboard_getstring()
 		tty_printchar (ch, 0x0f);
 		string[gets_cursor_position++] = ch;
 	}
+	return string;
 }
 
 /*
