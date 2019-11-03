@@ -7,6 +7,8 @@
 void kernel_init(void) {
 	display_clear(0x00);
 	tty_printf("     STARTING UP VTOS\n", 0x0e);
+	// print_logo();
+
 
 	tty_printf("starting IDT...\n", 0x0f);
 	idt_install();
@@ -25,118 +27,130 @@ void kernel_init(void) {
 	tty_printf(vtinfo_string(), 0x0f);
 	tty_printf('\n', 0x0f);
 	shell();
-	/// TODO: rewrite
-	/* int xxx = 0;
-	while (xxx < 39) {
-		tty_printf(0x0F, "M");
+}
+
+void tty_printfl( int color , char* str )
+{
+	tty_printf(str, color);
+}
+
+void print_logo (int with_info )
+{
+
+	/// /done
+	 int xxx = 0;
+	while (xxx < 38) {
+		tty_printfl(0x0F, "M");
 		xxx++;
 	}
-	tty_printf(0x0F, "\n");
+	tty_printfl(0x0F, "\n");
 	xxx=0;
 	while (xxx < 6) {
-                tty_printf(0x0F, "M");
+                tty_printfl(0x0F, "M");
 		xxx++;
         }
-	tty_printf(0x0F, "E");
+	tty_printfl(0x0F, "E");
 	xxx=0;
 	while (xxx < 5) {
-                tty_printf(0x02, "0");
+                tty_printfl(0x02, "0");
                 xxx++;
         }
-	tty_printf(0x0F, "XWMMMMMMMMMMMMMMMMMMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMN");
-	tty_printf(0x02, "kkkkkkk");
-	tty_printf(0x0F, "KMMMMMMMMMMMMMMMMMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMMX");
-	tty_printf(0x02, "kkkxkkk");
-	tty_printf(0x0F, "XMMMMMMMMMMMMMMMMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMMMMXK");
-	tty_printf(0x02, "KKK");
-	tty_printf(0x0F, "XK0NMMMMMMMMMMMMMMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMMMMMMMMMMN");
-	tty_printf(0x06, "OO");
-	tty_printf(0x0F, "MMMMMMMMMMMMMMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMMMMMMMMMX");
-	tty_printf(0x06, "R");
-	tty_printf(0x0F, "MX");
-	tty_printf(0x06, "R");
-	tty_printf(0x0F, "MMMMMMMMMMMMMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMMMMMMMW");
-	tty_printf(0x06, "R");
-	tty_printf(0x0F, "XMMM");
-	tty_printf(0x06, "R");
-	tty_printf(0x0F, "XMMMMMMMMMMMMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMMMMMMM");
-	tty_printf(0x06, "O");
-	tty_printf(0x0F, "NMMMMW");
-	tty_printf(0x06, "O");
-	tty_printf(0x0F, "NMMMMMMMMMMMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMMMMMMX");
-	tty_printf(0x06, "K");
-	tty_printf(0x0F, "MMMMMMW");
-	tty_printf(0x06, "OX");
-	tty_printf(0x0F, "MMMMMMMMMMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMMMMMW");
-	tty_printf(0x06, "O");
-	tty_printf(0x0F, "WMMMMMMMM");
-	tty_printf(0x06, "KO");
-	tty_printf(0x0F, "WMMMMMMMMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMMMMMN");
-	tty_printf(0x06, "O");
-	tty_printf(0x0F, "MMMMMMMMMMX");
-	tty_printf(0x04, "X0KWX0OO0X");
-	tty_printf(0x0F, "WMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMW");
-	tty_printf(0x04, "NXXKOK00KX");
-	tty_printf(0x0F, "WMMM");
-	tty_printf(0x04, "WX0OOOOOOOOOW");
-	tty_printf(0x0F, "MMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMM");
-	tty_printf(0x04, "NOOOOOOOOOOO0");
-	tty_printf(0x0F, "WM");
-	tty_printf(0x04, "XOOOOOOOOOOOOX");
-	tty_printf(0x0F, "MMMM");
-	tty_printf(0x0F, "\n"); 
-	tty_printf(0x0F, "MMMMM");
-	tty_printf(0x04, "NOOOOOOOOOOO0N");
-	tty_printf(0x0F, "M");
-	tty_printf(0x04, "XOOOOOOOOOOOOX");
-	tty_printf(0x0F, "MMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMM");
-	tty_printf(0x04, "NOOOOOOOOOOO0");
-	tty_printf(0x0F, "WM");
-	tty_printf(0x04, "XOOOOOOOOOOOOX");
-	tty_printf(0x0F, "MMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMM");
-	tty_printf(0x04, "W0OOOOOOOOOOX");
-	tty_printf(0x0F, "MMM");
-	tty_printf(0x04, "WKOOOOOOOOK");
-	tty_printf(0x0F, "WMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMW");
-	tty_printf(0x04, "XK0OOO00KN");
-	tty_printf(0x0F, "MMMMMM");
-	tty_printf(0x04, "WXXKXXN");
-	tty_printf(0x0F, "WMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
-	tty_printf(0x0F, "\n");
-	tty_printf(0x0F, "\n");
-	tty_printf(0xE2, "     vtOS"); */
+	tty_printfl(0x0F, "XWMMMMMMMMMMMMMMMMMMMMMMMM  ");
+	if ( with_info == 1 ) { tty_printf(vtinfo_string(), 0x0f); }
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMN");
+	tty_printfl(0x02, "kkkkkkk");
+	tty_printfl(0x0F, "KMMMMMMMMMMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMMX");
+	tty_printfl(0x02, "kkkxkkk");
+	tty_printfl(0x0F, "XMMMMMMMMMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMMMMXK");
+	tty_printfl(0x02, "KKK");
+	tty_printfl(0x0F, "XK0NMMMMMMMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMMMMMMMMMMN");
+	tty_printfl(0x06, "OO");
+	tty_printfl(0x0F, "MMMMMMMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMMMMMMMMMX");
+	tty_printfl(0x06, "R");
+	tty_printfl(0x0F, "MX");
+	tty_printfl(0x06, "R");
+	tty_printfl(0x0F, "MMMMMMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMMMMMMMW");
+	tty_printfl(0x06, "R");
+	tty_printfl(0x0F, "XMMM");
+	tty_printfl(0x06, "R");
+	tty_printfl(0x0F, "XMMMMMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMMMMMMM");
+	tty_printfl(0x06, "O");
+	tty_printfl(0x0F, "NMMMMW");
+	tty_printfl(0x06, "O");
+	tty_printfl(0x0F, "NMMMMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMMMMMMX");
+	tty_printfl(0x06, "K");
+	tty_printfl(0x0F, "MMMMMMW");
+	tty_printfl(0x06, "OX");
+	tty_printfl(0x0F, "MMMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMMMMMW");
+	tty_printfl(0x06, "O");
+	tty_printfl(0x0F, "WMMMMMMMM");
+	tty_printfl(0x06, "KO");
+	tty_printfl(0x0F, "WMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMMMMMN");
+	tty_printfl(0x06, "O");
+	tty_printfl(0x0F, "MMMMMMMMMMX");
+	tty_printfl(0x04, "X0KWX0OO0X");
+	tty_printfl(0x0F, "WMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMW");
+	tty_printfl(0x04, "NXXKOK00KX");
+	tty_printfl(0x0F, "WMMM");
+	tty_printfl(0x04, "WX0OOOOOOOOOW");
+	tty_printfl(0x0F, "MMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMM");
+	tty_printfl(0x04, "NOOOOOOOOOOO0");
+	tty_printfl(0x0F, "WM");
+	tty_printfl(0x04, "XOOOOOOOOOOOOX");
+	tty_printfl(0x0F, "MMMM");
+	tty_printfl(0x0F, "\n"); 
+	tty_printfl(0x0F, "MMMMM");
+	tty_printfl(0x04, "NOOOOOOOOOOO0N");
+	tty_printfl(0x0F, "M");
+	tty_printfl(0x04, "XOOOOOOOOOOOOX");
+	tty_printfl(0x0F, "MMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMM");
+	tty_printfl(0x04, "NOOOOOOOOOOO0");
+	tty_printfl(0x0F, "WM");
+	tty_printfl(0x04, "XOOOOOOOOOOOOX");
+	tty_printfl(0x0F, "MMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMM");
+	tty_printfl(0x04, "W0OOOOOOOOOOX");
+	tty_printfl(0x0F, "MMM");
+	tty_printfl(0x04, "WKOOOOOOOOK");
+	tty_printfl(0x0F, "WMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMW");
+	tty_printfl(0x04, "XK0OOO00KN");
+	tty_printfl(0x0F, "MMMMMM");
+	tty_printfl(0x04, "WXXKXXN");
+	tty_printfl(0x0F, "WMMMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0x0F, "\n");
+	tty_printfl(0xE2, "     vtOS"); 
+
 }
 
 void shell ()
@@ -144,19 +158,33 @@ void shell ()
 	// /todo
 	tty_printf("\n==VTOS KERNEL SHELL==\n",0x0e);
 	char* PS1 = "vtos | tvsh >>>";
-	int x = 1;
-	while ( x == 1 ) 
+	while ( 1 == 1 ) 
 	{
 		tty_printf("\n",0x0F);
 		tty_printf(PS1, 0x0F);
 		tty_printf(" ", 0x0F);
-		char* cmd = strtok ( strtok (keyboard_getstring(), " "),  "S") ;
+		char* kgs=keyboard_getstring();
+		// tty_printf(kgs, 0x0f);
+		char* cmd = strtok ( strtok (kgs, " "),  "S") ;
 		tty_printf("\n", 0x0F);
 		//if
 		//
-		if ( cmd == "help")
+		if ( strcmp ( cmd , "help" ) == 0 )
 		{
 			tty_printf("This is help. \n", 0x0F);
+		}
+		if ( strcmp ( cmd , "info" ) == 0 )
+		{
+			tty_printf(vtinfo_string(), 0x0f);
+		}
+		if ( strcmp ( cmd , "logo" ) == 0 )
+                {                                                                             print_logo(0);
+                }
+		if ( strcmp ( cmd , "neofetch" ) == 0 | strcmp ( cmd , "logoi" ) == 0)
+                {                                                                             print_logo(1);                                                }
+		if ( strcmp ( cmd , "clear" ) == 0 )
+		{
+			display_clear(0x00);
 		}
 		else
 		{
@@ -165,6 +193,7 @@ void shell ()
 			tty_printf( cmd , 0x0F); 
 			tty_printf("' not found.\n", 0x0F);
 		}
+		cmd="";
 		//
 		//fi
 
