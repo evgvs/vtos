@@ -162,14 +162,30 @@ uint8_t keyboard_getchar()
 	while(ret == 0)
 	{
 		if(kbd_buf_in == kbd_buf_out)
-		{
-			tty_printf("", 0x0f); //костыль
 			keyboard_wait_irq();
-		}
+		tty_printf("", 0x0f); //костыль
 		ret = keyboard_event_convert(keyboard_buffer_pop());
 	}
 	//tty_printchar(ret, 0x0f);
 	return ret;
+}
+
+char * keyboard_getstring()
+{
+	char * string = 0;
+	int gets_cursor_position = 0;
+	while (1) 
+	{
+		char ch = keyboard_getchar();
+		if (ch == '\n') {
+			tty_printchar (ch, 0x0f);
+			return string;
+		}
+		//if (ch == '\b') //TODO 
+
+		tty_printchar (ch, 0x0f);
+		string[gets_cursor_position++] = ch;
+	}
 }
 
 /*
