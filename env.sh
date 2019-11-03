@@ -1,5 +1,5 @@
 #!/bin/sh
 
-[ -f "i686-elf-4.9.1-Linux-x86_64/" ] && tar xf 'i686-elf-4.9.1-Linux-x86_64.tar.xz'
-
-PROMPT="(vtos_env) $PROMPT" PS1="(vtos_env) $PS1" PATH="$(pwd)/i686-elf-4.9.1-Linux-x86_64/bin:$PATH" $SHELL
+PROMPT="(vtos_env) $(echo $PROMPT)" 
+PS1="(vtos_env) $(echo $PS1)" 
+PATH="$(pwd)/i686-elf/bin:$PATH" $SHELL

@@ -1,111 +1,76 @@
- 
-/* Declare constants for the multiboot header. */
-.set ALIGN,    1<<0             /* align loaded modules on page boundaries */
-.set MEMINFO,  1<<1             /* provide memory map */
-.set FLAGS,    ALIGN | MEMINFO  /* this is the Multiboot 'flag' field */
-.set MAGIC,    0x1BADB002       /* 'magic number' lets bootloader find the header */
-.set CHECKSUM, -(MAGIC + FLAGS) /* checksum of above, to prove we are multiboot */
- 
-/* 
-Declare a multiboot header that marks the program as a kernel. These are magic
-values that are documented in the multiboot standard. The bootloader will
-search for this signature in the first 8 KiB of the kernel file, aligned at a
-32-bit boundary. The signature is in its own section so the header can be
-forced to be within the first 8 KiB of the kernel file.
-*/
+# Declare constants for the multiboot header
+.set ALIGN,		1<<0				# align loaded modules on page boundaries
+.set MEMINFO,	1<<1				# please provide us a memory map
+.set FLAGS,		ALIGN | MEMINFO		# multiboot "flag" field
+.set MAGIC,		0x1BADB002			# magic number to let the booloader find the header
+.set CHECKSUM,	-(MAGIC + FLAGS)	# Checksum of the above
 
+# Declare a multiboot header that marks the program as a kernel.  These
+# are magic values that are documented in the multiboot standard.  The
+# bootloader will search for this signature in the first 8KiB of the 
+# kernel file, aligned at a 32-bit boundary.  The signature is in its
+# own section so the header can be forced to be in the first 8 KiB of 
+# the kernel file.
 .section .multiboot
 .align 4
 .long MAGIC
 .long FLAGS
 .long CHECKSUM
- 
-/*
-The multiboot standard does not define the value of the stack pointer register
-(esp) and it is up to the kernel to provide a stack. This allocates room for a
-small stack by creating a symbol at the bottom of it, then allocating 16384
-bytes for it, and finally creating a symbol at the top. The stack grows
-downwards on x86. The stack is in its own section so it can be marked nobits,
-which means the kernel file is smaller because it does not contain an
-uninitialized stack. The stack on x86 must be 16-byte aligned according to the
-System V ABI standard and de-facto extensions. The compiler will assume the
-stack is properly aligned and failure to align the stack will result in
-undefined behavior.
-*/
+
+# The multiboot standard does not define the value of the stack pointer
+# register esp, and it's up to the kernel to provide a stack.  The following
+# lines allocate room for a small stack by creating a symbol at the bottom,
+# then allocating 16KiB for it, then putting a symbol at the top.  The
+# stack will grow downwards.  It's apparently in its own section so it
+# can be marked nobits, but there doesn't seem to actually be anything
+# that does that.  Odd.  In theory doing that allows us to avoid having
+# 16KiB of dead bytes in the binary.
+# The stack needs to be 16-byte alsigned for x86 according to the System
+# V ABI standard, so we do that here.
 .section .bss
 .align 16
 stack_bottom:
-.skip 16384 # 16 KiB
+.skip 65535 # 64 KiB for the stack             old: 16384  # 16KiB
 stack_top:
- 
-/*
-The linker script specifies _start as the entry point to the kernel and the
-bootloader will jump to this position once the kernel has been loaded. It
-doesn't make sense to return from this function as the bootloader is gone.
-*/
+
+# The linker script will specify _start as the entry point to the kernel
+# and so that bootloader will jump to this position when the kernel has
+# been loaded.  We won't return from the function, as there's no point
+# in returning from a kernel because there's nothing to return to.
 .section .text
 .global _start
 .type _start, @function
 _start:
-	/*
-	The bootloader has loaded us into 32-bit protected mode on a x86
-	machine. Interrupts are disabled. Paging is disabled. The processor
-	state is as defined in the multiboot standard. The kernel has full
-	control of the CPU. The kernel can only make use of hardware features
-	and any code it provides as part of itself. There's no printf
-	function, unless the kernel provides its own <stdio.h> header and a
-	printf implementation. There are no security restrictions, no
-	safeguards, no debugging mechanisms, only what the kernel provides
-	itself. It has absolute and complete power over the
-	machine.
-	*/
- 
-	/*
-	To set up a stack, we set the esp register to point to the top of the
-	stack (as it grows downwards on x86 systems). This is necessarily done
-	in assembly as languages such as C cannot function without a stack.
-	*/
+	# set up the stack
 	mov $stack_top, %esp
- 
-	/*
-	This is a good place to initialize crucial processor state before the
-	high-level kernel is entered. It's best to minimize the early
-	environment where crucial features are offline. Note that the
-	processor is not fully initialized yet: Features such as floating
-	point instructions and instruction set extensions are not initialized
-	yet. The GDT should be loaded here. Paging should be enabled here.
-	C++ features such as global constructors and exceptions will require
-	runtime support to work as well.
-	*/
- 
-	/*
-	Enter the high-level kernel. The ABI requires the stack is 16-byte
-	aligned at the time of the call instruction (which afterwards pushes
-	the return pointer of size 4 bytes). The stack was originally 16-byte
-	aligned above and we've pushed a multiple of 16 bytes to the
-	stack since (pushed 0 bytes so far), so the alignment has thus been
-	preserved and the call is well defined.
-	*/
-	call kernel_main
- 
-	/*
-	If the system has nothing more to do, put the computer into an
-	infinite loop. To do that:
-	1) Disable interrupts with cli (clear interrupt enable in eflags).
-	   They are already disabled by the bootloader, so this is not needed.
-	   Mind that you might later enable interrupts and return from
-	   kernel_main (which is sort of nonsensical to do).
-	2) Wait for the next interrupt to arrive with hlt (halt instruction).
-	   Since they are disabled, this will lock up the computer.
-	3) Jump to the hlt instruction if it ever wakes up due to a
-	   non-maskable interrupt occurring or due to system management mode.
-	*/
+
+	# This is where we would set up the GDT if we were setting one
+	# up -- but there's nothing here for now.
+
+	push %ebx # Multiboot structure
+	push %eax # Multiboot magic number
+
+	# Now, call our C code.  The stack is untouched and thus 16-byte 
+	# aligned, just like it was originally.  So we can safely call a 
+	# C function that is expecting the System V ABI.
+
+	call kernel_init
+
+	# As we have nothing left to do, we can go into an infinite loop.
+	# We disable interrupts (probably unnecessary, but if the kernel
+	# was buggy and enabled them then returned, we it's safest to fix 
+	# that).
 	cli
+
+	# Then we halt and wait for the next interrupt.  Having disabled
+	# them, we should never get them -- though there might be a non-
+	# maskable one
 1:	hlt
+	
+	# Just in case we get a non-maskable one...
 	jmp 1b
- 
-/*
-Set the size of the _start symbol to the current location '.' minus its start.
-This is useful when debugging or when you implement call tracing.
-*/
+
+# We set the size of the _start symbol -- which presumably means it's
+# some kind of object with attributes, not just a simple label -- 
+# to the difference between our current point and the symbol's location
 .size _start, . - _start

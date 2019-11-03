@@ -43,17 +43,29 @@ void display_clear(int color) { //clear
 		0x01 - Black background, Dark blue text.
 		0xe4 - Yellow background, Red text.
 
-		tty_printf(0x01, "blue on black\n");
-		tty_printf(0xe4, "red on yellow\n");
+		tty_printf("blue on black\n", 0x01);
+		tty_printf("red on yellow\n", 0xe4);
 	*/
-
-void tty_printf(int color, const char *string) {
+void tty_printf(const char *string, int color) {
 	while( *string != 0 ) {
 		if( *string =='\n') {
 			cursor_current_line++;
 			cursor_pos = cursor_current_line * 80 * 2;
+			return;
 		}
 		video[cursor_pos++] = *string++;
 		video[cursor_pos++] = color;
 	}
+}
+
+void tty_printchar(char char1, int color) {
+	if( char1 =='\n') {
+		cursor_current_line++;
+		cursor_pos = cursor_current_line * 80 * 2;
+		return;
+	}
+
+	video[cursor_pos++] = char1;
+	video[cursor_pos++] = color;
+	
 }

@@ -1,9 +1,32 @@
-#include "drv/video.h"
+#include "./drv/video.h"
+#include "./idt.h"
+#include "./drv/keyboard.h"
 
-void kernel_main(void) {
+void kernel_init(void) {
 	display_clear(0x00);
+	tty_printf("     STARTING UP VTOS\n", 0x0e);
 
-	int xxx = 0;
+	tty_printf("starting IDT...\n", 0x0f);
+	idt_install();
+	tty_printf("IDT started\n", 0x02);
+
+	interrupt_disable_all();
+	tty_printf("interrupts disabled\n", 0x02);
+
+	tty_printf("initializing keyboard...\n", 0x0f);
+    keyboard_install();
+    tty_printf("keyboard initialized\n", 0x02);
+
+    interrupt_enable_all();
+    tty_printf("interrupts enabled\n", 0x02);
+
+	tty_printf("vtOS 0.2 - KEYBOARD ALPHA TEST \n", 0x0f);
+	while (1) {
+		tty_printchar (keyboard_getchar(), 0x0f);
+	}
+	
+	/// TODO: rewrite
+	/* int xxx = 0;
 	while (xxx < 39) {
 		tty_printf(0x0F, "M");
 		xxx++;
@@ -113,5 +136,6 @@ void kernel_main(void) {
 	tty_printf(0x0F, "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
 	tty_printf(0x0F, "\n");
 	tty_printf(0x0F, "\n");
-	tty_printf(0xE2, "     vtOS");
+	tty_printf(0xE2, "     vtOS"); */
+
 }
