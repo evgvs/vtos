@@ -10,8 +10,8 @@ all:
 	i686-elf-gcc -c ./drv/keyboard.c -o ./bin/keyboard.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -c ./drv/video.c -o ./bin/video.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
 	i686-elf-gcc -T linker.ld -o vtos.bin -ffreestanding -O2 -nostdlib ./bin/*.o  -lgcc
-test: all
-	qemu-system-x86_64 -kernel vtos.bin 
+qemu: all
+	qemu-system-i386 -kernel vtos.bin 
 clear:
 	rm -rf ./bin/
 clean:
