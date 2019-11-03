@@ -1,7 +1,7 @@
 #include "./drv/video.h"
 #include "./idt.h"
 #include "./drv/keyboard.h"
-
+#include "./vtos-release.h"
 void kernel_init(void) {
 	display_clear(0x00);
 	tty_printf("     STARTING UP VTOS\n", 0x0e);
@@ -20,7 +20,7 @@ void kernel_init(void) {
     interrupt_enable_all();
     tty_printf("interrupts enabled\n", 0x02);
 
-	tty_printf("vtOS 0.2 - KEYBOARD ALPHA TEST \n", 0x0f);
+	tty_printf(, 0x0f);
 	while (1) {
 		tty_printchar (keyboard_getchar(), 0x0f);
 	}
