@@ -1,6 +1,7 @@
 #include "./drv/video.h"
 #include "./idt.h"
 #include "./drv/keyboard.h"
+#include "./lib/string.h"
 #include "./lib/string.c"
 
 void kernel_init(void) {
@@ -140,5 +141,33 @@ void kernel_init(void) {
 
 void shell ()
 {
-	//todo
+	// /todo
+	tty_printf("\n==VTOS KERNEL SHELL==\n",0x0e);
+	char* PS1 = "vtos | tvsh >>>";
+	int x = 1;
+	while ( x == 1 ) 
+	{
+		tty_printf("\n",0x0F);
+		tty_printf(PS1, 0x0F);
+		tty_printf(" ", 0x0F);
+		char* cmd = strtok ( strtok (keyboard_getstring(), " "),  "S") ;
+		tty_printf("\n", 0x0F);
+		//if
+		//
+		if ( cmd == "help")
+		{
+			tty_printf("This is help. \n", 0x0F);
+		}
+		else
+		{
+			tty_printf("error", 0x04);
+		       	tty_printf(": command '", 0x0F); 
+			tty_printf( cmd , 0x0F); 
+			tty_printf("' not found.\n", 0x0F);
+		}
+		//
+		//fi
+
+	}
+	
 }
