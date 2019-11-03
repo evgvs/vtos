@@ -1,8 +1,13 @@
-# Testing/developing
+# vtOS - open source operating system 
 
-## To build a vtOS you need an environment
+## Build & run
 
 ```
 # ./env.sh
-(vtos_env) # make
+(vtos_env) # make qemu
 ```
+## Features
+*  Kernel
+*  Print color text on screen
+*  Keyboard 
+*  Ports IO
