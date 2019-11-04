@@ -222,6 +222,12 @@ void shell ()
 		{
 			panic("test panic");
 		}
+		else if ( strcmp( cmd , "" ) == 0 )
+		{
+			memset(cmd, 0, sizeof(cmd));
+			memset(kgs, 0, sizeof(kgs));
+			continue;
+		}
 		else
 		{
 			tty_printf("error", 0x04);
