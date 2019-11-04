@@ -3,7 +3,7 @@ image: alpine:3.7
 build:
   stage: build
   script:
-    - apk update && apk install make
+    - apk update && apk add make
     - ./env.sh && make
   artifacts:
     paths:
