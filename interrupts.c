@@ -24,8 +24,7 @@ bool register_interrupt_handler(uint32_t idt_index, interrupt_handler_t handler)
 
 void fault_handler(struct regs *r)
 {
-    tty_printf("System Exception. System Halted!\n", 0x0f);
-    for (;;);
+    panic("interrupt error");
 }
 
 void irq_handler(struct regs *r)

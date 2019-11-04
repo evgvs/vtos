@@ -10,8 +10,10 @@ int cursor_current_line = 0;
 volatile char *video = (volatile char*)0xB8000; //video memory
 
 void display_clear(int color) { //clear
+	cursor_pos = 0;
+	cursor_current_line = 0;
 	for (int i = 0; i < TERM_SIZE_Y * TERM_SIZE_X; i++)
-		video[i] = color;
+	tty_printchar(' ', color);
 }
 
 	/*

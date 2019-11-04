@@ -3,7 +3,7 @@
 #include "./drv/keyboard.h"
 #include "./lib/string.h"
 #include "./lib/string.c"
-
+#include "./panic.h"
 void tty_printfl ( int, char* );
 void print_logo ( int );
 void shell ();
@@ -217,6 +217,10 @@ void shell ()
 		else if ( strcmp ( cmd , "clear" ) == 0 )
 		{
 			display_clear(0x00);
+		}
+		else if ( strcmp ( cmd , "panic-test" ) == 0 )
+		{
+			panic("test panic");
 		}
 		else
 		{

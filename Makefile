@@ -9,6 +9,7 @@ all:
 	$(CC) $(CFLAGS) info.c 			-o ./bin/info.o 
 	$(CC) $(CFLAGS) kernel.c 		-o ./bin/kernel.o 
 	$(CC) $(CFLAGS) idt.c 			-o ./bin/idt.o  
+	$(CC) $(CFLAGS) panic.c 			-o ./bin/panic.o  
 	$(CC) $(CFLAGS) interrupts.c 		-o ./bin/interrupts.o 
 	$(CC) $(CFLAGS) ./io/ports.c 		-o ./bin/ports.o 
 	$(CC) $(CFLAGS) ./drv/keyboard.c 	-o ./bin/keyboard.o 
