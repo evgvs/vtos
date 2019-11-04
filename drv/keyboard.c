@@ -177,13 +177,20 @@ char * keyboard_getstring()
 	while (1)
 	{
 		char ch = keyboard_getchar();
-		if (ch == '\n') {
+		if (ch == '\n') 
+		{
 			tty_printchar (ch, 0x0f);
 			return string;
 		}
-		//if (ch == '\b') //TODO 
-		tty_printchar (ch, 0x0f);
-		string[gets_cursor_position++] = ch;
+		else if (ch == '\b') 
+		{
+			string[gets_cursor_position--] = NULL;
+			tty_printchar ('\b', 0x0f);
+		} else 
+		{
+			tty_printchar (ch, 0x0f);
+			string[gets_cursor_position++] = ch;
+		}
 	}
 	return string;
 }

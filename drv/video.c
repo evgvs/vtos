@@ -9,11 +9,12 @@ int cursor_current_line = 0;
 
 volatile char *video = (volatile char*)0xB8000; //video memory
 
-void display_clear(int color) { //clear
+void display_clear(int color) 
+{
 	cursor_pos = 0;
 	cursor_current_line = 0;
 	for (int i = 0; i < TERM_SIZE_Y * TERM_SIZE_X; i++)
-	tty_printchar(' ', color);
+		tty_printchar(' ', color);
 }
 
 	/*
@@ -48,9 +49,12 @@ void display_clear(int color) { //clear
 		tty_printf("blue on black\n", 0x01);
 		tty_printf("red on yellow\n", 0xe4);
 	*/
-void tty_printf(const char *string, int color) {
-	while( *string != 0 ) {
-		if( *string == '\n') {
+void tty_printf(const char *string, int color) 
+{
+	while( *string != 0 ) 
+	{
+		if( *string == '\n') 
+		{
 			cursor_current_line++;
 			cursor_pos = cursor_current_line * TERM_SIZE_X * 2;
 			return;
@@ -60,12 +64,32 @@ void tty_printf(const char *string, int color) {
 	}
 }
 
-void tty_printchar(char char1, int color) {
-	if( char1 =='\n') {
+void tty_printchar(char char1, int color) 
+{
+	if( char1 == '\n' ) 
+	{
 		cursor_current_line++;
 		cursor_pos = cursor_current_line * 80 * 2;
+		if(cursor_current_line > TERM_SIZE_Y - 1)
+			tty_scroll();
+		return;
+	}
+	if ( char1 == '\b' )
+	{
+		cursor_pos -= 2;
+		video[cursor_pos++] = ' ';
+		video[cursor_pos++] = color;
+		cursor_pos -= 2;
 		return;
 	}
 	video[cursor_pos++] = char1;
 	video[cursor_pos++] = color;
+}
+
+void tty_scroll() // TODO
+{
+	cursor_pos = 0;
+	cursor_current_line = 0;
+	for (int i = 0; i < TERM_SIZE_Y * TERM_SIZE_X; i++)
+		tty_printchar(' ', 0x0f);
 }
