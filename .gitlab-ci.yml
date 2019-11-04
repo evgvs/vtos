@@ -1,0 +1,9 @@
+image: alpine:3.7
+
+build:
+  stage: build
+  script:
+    - ./env.sh && make
+  artifacts:
+    paths:
+      - vtos.bin
