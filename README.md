@@ -11,3 +11,5 @@
 *  Print color text on screen
 *  Keyboard 
 *  Ports IO
+*  Panic
+*  Shell
