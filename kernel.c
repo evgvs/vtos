@@ -155,6 +155,33 @@ void print_logo ( int with_info )
 	tty_printfl(0xE2, "     vtOS");
 }
 
+int My_itoa(int value,char *ptr)
+{
+	int count=0,temp;
+	if(ptr==NULL)
+		return 0;
+	if(value==0)
+	{
+		*ptr='0';
+		return 1;
+	}
+	
+	if(value<0)
+	{
+		value*=(-1);
+		*ptr++='-';
+		count++;
+	}
+	for(temp=value;temp>0;temp/=10,ptr++);
+	*ptr='\0';
+	for(temp=value;temp>0;temp/=10)
+	{
+		*--ptr=temp%10+'0';
+		count++;
+	}
+	return count;
+}
+
 void shell ()
 {
 	// /todo
@@ -165,7 +192,7 @@ void shell ()
 		tty_printf("\n",0x0F);
 		tty_printf(PS1, 0x0F);
 		tty_printf(" ", 0x0F);
-		char* kgs=keyboard_getstring();
+		char* kgs = keyboard_getstring();
 		// tty_printf(kgs, 0x0f);
 		char* cmd = strtok ( strtok (kgs, " "),  "S") ;
 		tty_printf("\n", 0x0F);
@@ -198,8 +225,8 @@ void shell ()
 			tty_printf( cmd , 0x0F); 
 			tty_printf("' not found.\n", 0x0F);
 		}
-		cmd="";
-		kgs="";
+		memset(cmd, 0, sizeof(cmd));
+		memset(kgs, 0, sizeof(kgs));
 		//
 		//fi
 	}

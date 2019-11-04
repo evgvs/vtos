@@ -158,8 +158,8 @@ void keyboard_handler(__attribute__((unused)) struct regs *r)
 
 uint8_t keyboard_getchar()
 {
-	char ret = 0;
-	while(ret == 0)
+	char ret = NULL;
+	while(!ret)
 	{
 		if(kbd_buf_in == kbd_buf_out)
 			keyboard_wait_irq();
@@ -172,9 +172,9 @@ uint8_t keyboard_getchar()
 
 char * keyboard_getstring()
 {
-	char * string = 0;
+	char * string = NULL;
 	int gets_cursor_position = 0;
-	while (1) 
+	while (1)
 	{
 		char ch = keyboard_getchar();
 		if (ch == '\n') {
@@ -182,7 +182,6 @@ char * keyboard_getstring()
 			return string;
 		}
 		//if (ch == '\b') //TODO 
-
 		tty_printchar (ch, 0x0f);
 		string[gets_cursor_position++] = ch;
 	}
