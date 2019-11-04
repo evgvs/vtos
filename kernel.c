@@ -4,7 +4,11 @@
 #include "./lib/string.h"
 #include "./lib/string.c"
 
-void kernel_init(void) {
+void tty_printfl ( int, char* );
+void print_logo ( int );
+void shell ();
+
+void kernel_init (void) {
 	display_clear(0x00);
 	tty_printf("     STARTING UP VTOS\n", 0x0e);
 	// print_logo();
@@ -29,14 +33,13 @@ void kernel_init(void) {
 	shell();
 }
 
-void tty_printfl( int color , char* str )
+void tty_printfl ( int color , char* str )
 {
 	tty_printf(str, color);
 }
 
-void print_logo (int with_info )
+void print_logo ( int with_info )
 {
-
 	/// /done
 	 int xxx = 0;
 	while (xxx < 38) {
@@ -46,15 +49,15 @@ void print_logo (int with_info )
 	tty_printfl(0x0F, "\n");
 	xxx=0;
 	while (xxx < 6) {
-                tty_printfl(0x0F, "M");
+		tty_printfl(0x0F, "M");
 		xxx++;
-        }
+	}
 	tty_printfl(0x0F, "E");
 	xxx=0;
 	while (xxx < 5) {
-                tty_printfl(0x02, "0");
-                xxx++;
-        }
+		tty_printfl(0x02, "0");
+		xxx++;
+	}
 	tty_printfl(0x0F, "XWMMMMMMMMMMMMMMMMMMMMMMMM  ");
 	if ( with_info == 1 ) { tty_printf(vtinfo_string(), 0x0f); }
 	tty_printfl(0x0F, "\n");
@@ -149,8 +152,7 @@ void print_logo (int with_info )
 	tty_printfl(0x0F, "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
 	tty_printfl(0x0F, "\n");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0xE2, "     vtOS"); 
-
+	tty_printfl(0xE2, "     vtOS");
 }
 
 void shell ()
@@ -158,7 +160,7 @@ void shell ()
 	// /todo
 	tty_printf("\n==VTOS KERNEL SHELL==\n",0x0e);
 	char* PS1 = "vtos | tvsh >>>";
-	while ( 1 == 1 ) 
+	while ( 1 )
 	{
 		tty_printf("\n",0x0F);
 		tty_printf(PS1, 0x0F);
@@ -173,16 +175,19 @@ void shell ()
 		{
 			tty_printf("This is help. \n", 0x0F);
 		}
-		if ( strcmp ( cmd , "info" ) == 0 )
+		else if ( strcmp ( cmd , "info" ) == 0 )
 		{
 			tty_printf(vtinfo_string(), 0x0f);
 		}
-		if ( strcmp ( cmd , "logo" ) == 0 )
-		{                                                                             print_logo(0);
+		else if ( strcmp ( cmd , "logo" ) == 0 )
+		{
+			print_logo(0);
 		}
-		if ( strcmp ( cmd , "neofetch" ) == 0 | strcmp ( cmd , "logoi" ) == 0)
-		{                                                                             print_logo(1);                                                }
-		if ( strcmp ( cmd , "clear" ) == 0 )
+		else if ( ( strcmp ( cmd , "neofetch" ) == 0 ) | ( strcmp ( cmd , "logoi" ) == 0 ) )
+		{
+			print_logo(1);
+		}
+		else if ( strcmp ( cmd , "clear" ) == 0 )
 		{
 			display_clear(0x00);
 		}
@@ -194,6 +199,7 @@ void shell ()
 			tty_printf("' not found.\n", 0x0F);
 		}
 		cmd="";
+		kgs="";
 		//
 		//fi
 	}
