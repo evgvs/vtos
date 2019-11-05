@@ -50,10 +50,11 @@ _start:
 	push %ebx # Multiboot structure
 	push %eax # Multiboot magic number
 
+	#sti
+	
 	# Now, call our C code.  The stack is untouched and thus 16-byte 
 	# aligned, just like it was originally.  So we can safely call a 
 	# C function that is expecting the System V ABI.
-
 	call kernel_init
 
 	# As we have nothing left to do, we can go into an infinite loop.

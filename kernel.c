@@ -4,31 +4,32 @@
 #include "./lib/string.h"
 #include "./lib/string.c"
 #include "./panic.h"
+#include "./io/ports.h"
+#include "./gdt.h"
+
 void tty_printfl ( int, char* );
 void print_logo ( int );
 void shell ();
 
-void kernel_init (void) {
+void kernel_init (int magic_number, struct multiboot_info *mboot_info) {
 	display_clear(0x00);
 	tty_printf("     STARTING UP VTOS\n", 0x0e);
 	// print_logo();
 
+    gdt_install();
 
-	tty_printf("starting IDT...\n", 0x0f);
-	idt_install();
-	tty_printf("IDT started\n", 0x02);
+    idt_install();
+
+	tty_printf("\n", 0x0f);
 
 	interrupt_disable_all();
-	tty_printf("interrupts disabled\n", 0x02);
 
-	tty_printf("initializing keyboard...\n", 0x0f);
 	keyboard_install();
-	tty_printf("keyboard initialized\n", 0x02);
 
 	interrupt_enable_all();
-	tty_printf("interrupts enabled\n", 0x02);
 
 	tty_printf(vtinfo_string(), 0x0f);
+
 	tty_printf('\n', 0x0f);
 	shell();
 }
