@@ -25,7 +25,7 @@ set timeout=0
 set default=0
 
 menuentry "vtOS" {
-    multiboot2 /boot/vtos.bin
+    multiboot /boot/vtos.bin
     boot
 }
 ```
