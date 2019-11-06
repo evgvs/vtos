@@ -20,12 +20,12 @@ all:
 	$(CC) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc 	
 qemu: all
 	qemu-system-i386 -kernel vtos.bin 
-clear:
-	rm -rf ./bin/
-
 iso: all
 	cp vtos.bin isofiles
 	grub-mkrescue -o vtos.iso isofiles
+iso-qemu: iso
+	qemu-system-i386 -cdrom vtos.iso
 clean:
 	rm -rf ./bin/
-
+clear:
+	rm -rf ./bin/
