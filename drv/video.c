@@ -57,7 +57,7 @@ void tty_printf(const char *string, int color)
 		{
 			cursor_current_line++;
 			cursor_pos = cursor_current_line * TERM_SIZE_X * 2;
-			return;
+			break;
 		}
 		video[cursor_pos++] = *string++;
 		video[cursor_pos++] = color;

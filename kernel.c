@@ -44,119 +44,103 @@ void print_logo ( int with_info )
 	/// /done
 	 int xxx = 0;
 	while (xxx < 38) {
-		tty_printfl(0x0F, "M");
+		tty_printfl(0x0F, " ");
 		xxx++;
 	}
 	tty_printfl(0x0F, "\n");
 	xxx=0;
 	while (xxx < 6) {
-		tty_printfl(0x0F, "M");
+		tty_printfl(0x0F, " ");
 		xxx++;
 	}
-	tty_printfl(0x0F, "E");
+	tty_printfl(0x0F, "");
 	xxx=0;
 	while (xxx < 5) {
 		tty_printfl(0x02, "0");
 		xxx++;
 	}
-	tty_printfl(0x0F, "XWMMMMMMMMMMMMMMMMMMMMMMMM  ");
+	tty_printfl(0x02, "XWX                          ");
 	if ( with_info == 1 ) { tty_printf(vtinfo_string(), 0x0f); }
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMN");
+	tty_printfl(0x0F, "       ");
 	tty_printfl(0x02, "kkkkkkk");
-	tty_printfl(0x0F, "KMMMMMMMMMMMMMMMMMMMMMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMMX");
+	tty_printfl(0x0F, "        ");
 	tty_printfl(0x02, "kkkxkkk");
-	tty_printfl(0x0F, "XMMMMMMMMMMMMMMMMMMMMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMMMMXK");
-	tty_printfl(0x02, "KKK");
-	tty_printfl(0x0F, "XK0NMMMMMMMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "          ");
+	tty_printfl(0x02, "KKKKKkk");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMMMMMMMMMMN");
+	tty_printfl(0x0F, "                ");
 	tty_printfl(0x06, "OO");
-	tty_printfl(0x0F, "MMMMMMMMMMMMMMMMMMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMMMMMMMMMX");
+	tty_printfl(0x0F, "               ");
 	tty_printfl(0x06, "R");
-	tty_printfl(0x0F, "MX");
+	tty_printfl(0x0F, "  ");
 	tty_printfl(0x06, "R");
-	tty_printfl(0x0F, "MMMMMMMMMMMMMMMMMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMMMMMMMW");
+	tty_printfl(0x0F, "             ");
 	tty_printfl(0x06, "R");
-	tty_printfl(0x0F, "XMMM");
+	tty_printfl(0x0F, "    ");
 	tty_printfl(0x06, "R");
-	tty_printfl(0x0F, "XMMMMMMMMMMMMMMMMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMMMMMMM");
+	tty_printfl(0x0F, "            ");
 	tty_printfl(0x06, "O");
-	tty_printfl(0x0F, "NMMMMW");
+	tty_printfl(0x0F, "      ");
 	tty_printfl(0x06, "O");
-	tty_printfl(0x0F, "NMMMMMMMMMMMMMMMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMMMMMMX");
+	tty_printfl(0x0F, "            ");
 	tty_printfl(0x06, "K");
-	tty_printfl(0x0F, "MMMMMMW");
+	tty_printfl(0x0F, "       ");
 	tty_printfl(0x06, "OX");
-	tty_printfl(0x0F, "MMMMMMMMMMMMMMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMMMMMW");
+	tty_printfl(0x0F, "           ");
 	tty_printfl(0x06, "O");
-	tty_printfl(0x0F, "WMMMMMMMM");
+	tty_printfl(0x0F, "         ");
 	tty_printfl(0x06, "KO");
-	tty_printfl(0x0F, "WMMMMMMMMMMMMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMMMMMN");
+	tty_printfl(0x0F, "           ");
 	tty_printfl(0x06, "O");
-	tty_printfl(0x0F, "MMMMMMMMMMX");
+	tty_printfl(0x0F, "           ");
 	tty_printfl(0x04, "X0KWX0OO0X");
-	tty_printfl(0x0F, "WMMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMW");
+	tty_printfl(0x0F, "       ");
 	tty_printfl(0x04, "NXXKOK00KX");
-	tty_printfl(0x0F, "WMMM");
+	tty_printfl(0x0F, "    ");
 	tty_printfl(0x04, "WX0OOOOOOOOOW");
-	tty_printfl(0x0F, "MMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMM");
+	tty_printfl(0x0F, "     ");
 	tty_printfl(0x04, "NOOOOOOOOOOO0");
-	tty_printfl(0x0F, "WM");
+	tty_printfl(0x0F, "  ");
 	tty_printfl(0x04, "XOOOOOOOOOOOOX");
-	tty_printfl(0x0F, "MMMM");
 	tty_printfl(0x0F, "\n"); 
-	tty_printfl(0x0F, "MMMMM");
+	tty_printfl(0x0F, "     ");
 	tty_printfl(0x04, "NOOOOOOOOOOO0N");
-	tty_printfl(0x0F, "M");
+	tty_printfl(0x0F, " ");
 	tty_printfl(0x04, "XOOOOOOOOOOOOX");
-	tty_printfl(0x0F, "MMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMM");
+	tty_printfl(0x0F, "     ");
 	tty_printfl(0x04, "NOOOOOOOOOOO0");
-	tty_printfl(0x0F, "WM");
+	tty_printfl(0x0F, "  ");
 	tty_printfl(0x04, "XOOOOOOOOOOOOX");
-	tty_printfl(0x0F, "MMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMM");
+	tty_printfl(0x0F, "     ");
 	tty_printfl(0x04, "W0OOOOOOOOOOX");
-	tty_printfl(0x0F, "MMM");
+	tty_printfl(0x0F, "   ");
 	tty_printfl(0x04, "WKOOOOOOOOK");
-	tty_printfl(0x0F, "WMMMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMW");
+	tty_printfl(0x0F, "       ");
 	tty_printfl(0x04, "XK0OOO00KN");
-	tty_printfl(0x0F, "MMMMMM");
+	tty_printfl(0x0F, "      ");
 	tty_printfl(0x04, "WXXKXXN");
-	tty_printfl(0x0F, "WMMMMMMM");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x0F, "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+	tty_printfl(0x0F, "                                      ");
 	tty_printfl(0x0F, "\n");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0xE2, "     vtOS");
+	tty_printfl(0x02, "                                       vtOS");
 }
 
-int My_itoa(int value,char *ptr)
+int  y_itoa(int value,char *ptr)
 {
 	int count=0,temp;
 	if(ptr==NULL)
@@ -203,7 +187,13 @@ void shell ()
 		//
 		if ( strcmp ( cmd , "help" ) == 0 )
 		{
-			tty_printf("This is help. \n", 0x0F);
+			tty_printf("Available commands:\n ", 0x0F);
+			tty_printf("help - show this list\n ", 0x0F);
+			tty_printf("info - show release info\n ", 0x0F);
+			tty_printf("clear - clear screen\n", 0x0F);
+			tty_printf("panic-test - call kernel panic\n", 0x0F);
+			tty_printf("vtfetch - show logo and release info", 0x0F);
+			tty_printchar('\n', 0x0f);
 		}
 		else if ( strcmp ( cmd , "info" ) == 0 )
 		{
@@ -213,7 +203,7 @@ void shell ()
 		{
 			print_logo(0);
 		}
-		else if ( ( strcmp ( cmd , "neofetch" ) == 0 ) | ( strcmp ( cmd , "logoi" ) == 0 ) )
+		else if ( ( strcmp ( cmd , "vtfetch" ) == 0 ) | ( strcmp ( cmd , "logoi" ) == 0 ) )
 		{
 			print_logo(1);
 		}
