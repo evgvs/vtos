@@ -195,8 +195,10 @@ void shell ()
 		tty_printf(" ", 0x0F);
 		char* kgs = keyboard_getstring();
 		// tty_printf(kgs, 0x0f);
-		char* cmd = strtok ( strtok (kgs, " "),  "S") ;
-		tty_printf("\n", 0x0F);
+		//TODO: arguments
+		char* cmd = kgs ;
+		/////////////////
+		tty_printf("\n",0x0f);
 		//if
 		//
 		if ( strcmp ( cmd , "help" ) == 0 )
