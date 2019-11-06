@@ -2,9 +2,10 @@ AS = i686-elf-as
 CC = i686-elf-gcc
 CFLAGS=-std=gnu99 -ffreestanding -O0 -Wall -Wextra -c
 all:
-	mkdir -p ./bin/
+	mkdir 					-p isofiles/boot/grub/
+	mkdir 					-p ./bin/
 	$(AS) boot.s 				-o ./bin/boot.o
-	$(AS) gdt_asm.s 				-o ./bin/gdt_asm.o
+	$(AS) gdt_asm.s 			-o ./bin/gdt_asm.o
 	$(AS) idt_asm.s 			-o ./bin/idt_asm.o
 	$(AS) interrupts_asm.s 			-o ./bin/interrupts_asm.o
 	$(CC) $(CFLAGS) info.c 			-o ./bin/info.o 
@@ -21,6 +22,10 @@ qemu: all
 	qemu-system-i386 -kernel vtos.bin 
 clear:
 	rm -rf ./bin/
+
+iso: all
+	cp vtos.bin isofiles
+	grub-mkrescue -o vtos.iso isofiles
 clean:
 	rm -rf ./bin/
 
