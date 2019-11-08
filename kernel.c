@@ -179,7 +179,7 @@ void shell ()
 		//TODO: arguments
 		char* cmd = kgs ;
 
-		tty_printf("\n",0x0f);
+		//tty_printf("\n",0x0f);
 
 		if ( strcmp ( cmd , "help" ) == 0 )
 		{

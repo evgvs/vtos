@@ -57,6 +57,9 @@ void tty_printf(const char *string, int color)
 		{
 			cursor_current_line++;
 			cursor_pos = cursor_current_line * TERM_SIZE_X * 2;
+			if(cursor_current_line > TERM_SIZE_Y - 1)
+				tty_scroll();
+			return;
 			break;
 		}
 		video[cursor_pos++] = *string++;
@@ -88,8 +91,17 @@ void tty_printchar(char char1, int color)
 
 void tty_scroll() // TODO
 {
-	cursor_pos = 0;
-	cursor_current_line = 0;
-	for (int i = 0; i < TERM_SIZE_Y * TERM_SIZE_X; i++)
-		tty_printchar(' ', 0x0f);
+	for (int i = 0; i < 4000; i++)
+	{
+		if (i > 3949)
+		{
+			video[i]=0x00;
+		} else
+		{
+			video[i]=video[i + TERM_SIZE_X * 2];
+		}
+		cursor_pos = 3840;
+		cursor_current_line = 24;
+	}
+
 }
