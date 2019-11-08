@@ -1,3 +1,5 @@
+// DO NOT USE THIS SHIT!!!!! 
+// IT DOESN'T WORK
 #include <string.h>  
 
 char* split (char str[], char* who, int c) 
