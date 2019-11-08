@@ -163,10 +163,8 @@ uint8_t keyboard_getchar()
 	{
 		if(kbd_buf_in == kbd_buf_out)
 			keyboard_wait_irq();
-		tty_printf("", 0x0f); //костыль
 		ret = keyboard_event_convert(keyboard_buffer_pop());
 	}
-	//tty_printchar(ret, 0x0f);
 	return ret;
 }
 
@@ -177,6 +175,7 @@ char * keyboard_getstring()
 	while (1)
 	{
 		char ch = keyboard_getchar();
+		
 		if (ch == '\n') 
 		{
 			tty_printchar (ch, 0x0f);
@@ -189,6 +188,8 @@ char * keyboard_getstring()
 		} else 
 		{
 			tty_printchar (ch, 0x0f);
+			string[gets_cursor_position++] = ch;
+			string[gets_cursor_position--] = NULL;
 			string[gets_cursor_position++] = ch;
 		}
 	}
