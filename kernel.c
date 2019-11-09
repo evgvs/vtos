@@ -2,16 +2,16 @@
 #include "./idt.h"
 #include "./drv/keyboard.h"
 #include "./lib/string.h"
-#include "./lib/string.c"
 #include "./panic.h"
 #include "./io/ports.h"
 #include "./gdt.h"
+#include "./memory.h"
 
 void tty_printfl ( int, char* );
 void print_logo ( int );
 void shell ();
 
-void kernel_init (int magic_number, struct multiboot_info *mboot_info) {
+void kernel_init () {
 	display_clear(0x00);
 
     gdt_install();
@@ -171,7 +171,7 @@ void shell ()
 	char* PS1 = "[vtos | tvsh]$";
 	while ( 1 )
 	{
-		tty_printf("\n",0x0F);
+		//tty_printf("\n",0x0F);
 		tty_printf(PS1, 0x07);
 		tty_printf(" ", 0x0F);
 		char* kgs = keyboard_getstring();
@@ -184,17 +184,36 @@ void shell ()
 		if ( strcmp ( cmd , "help" ) == 0 )
 		{
 			tty_printf("Available commands:\n ", 0x0F);
+
 			tty_printf("help ", 0x0E);
 			tty_printf("- show this list\n ", 0x0F);
+
 			tty_printf("info ", 0x0E);
 			tty_printf("- show release info\n ", 0x0F);
+
 			tty_printf("clear ", 0x0E);
 			tty_printf("- clear screen\n", 0x0F);
+
+			tty_printf("vtfetch ", 0x0E);
+			tty_printf("- show logo and release info\n", 0x0F);
+		}
+		else if ( strcmp ( cmd , "help --dev" ) == 0 )
+		{
+			tty_printf("Available commands:\n ", 0x0F);
+			tty_printf("help ", 0x0E);
+			tty_printf("- show this list\n ", 0x0F);
+
+			tty_printf("info ", 0x0E);
+			tty_printf("- show release info\n ", 0x0F);
+
+			tty_printf("clear ", 0x0E);
+			tty_printf("- clear screen\n", 0x0F);
+
 			tty_printf("panic-test ", 0x0E);
 			tty_printf("- call kernel panic\n", 0x0F);
+
 			tty_printf("vtfetch ", 0x0E);
-			tty_printf("- show logo and release info", 0x0F);
-			tty_printchar('\n', 0x0f);
+			tty_printf("- show logo and release info\n", 0x0F);
 		}
 		else if ( strcmp ( cmd , "info" ) == 0 )
 		{

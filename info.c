@@ -2,15 +2,15 @@
 
 int vtver_int ()
 {
-	return 2;
+	return 4;
 } 
 
 char * vtver_string()
 {
-	return "2";
+	return "4";
 }
 
 char * vtinfo_string()
 {
-	return "vtOS 4 | 8 Nov 2019";
+	return "vtOS 4 | 9 Nov 2019";
 }

@@ -1,6 +1,6 @@
 AS = i686-elf-as
 CC = i686-elf-gcc
-CFLAGS=-std=gnu99 -ffreestanding -O0 -Wall -Wextra -c
+CFLAGS=-std=gnu99 -ffreestanding -O0  -c
 all:
 	mkdir 					-p isofiles/boot/grub/
 	mkdir 					-p ./bin/
@@ -14,12 +14,14 @@ all:
 	$(CC) $(CFLAGS) idt.c 			-o ./bin/idt.o  
 	$(CC) $(CFLAGS) panic.c 			-o ./bin/panic.o  
 	$(CC) $(CFLAGS) interrupts.c 		-o ./bin/interrupts.o 
+	$(CC) $(CFLAGS) ./lib/string.c 		-o ./bin/string.o 
 	$(CC) $(CFLAGS) ./io/ports.c 		-o ./bin/ports.o 
 	$(CC) $(CFLAGS) ./drv/keyboard.c 	-o ./bin/keyboard.o 
 	$(CC) $(CFLAGS) ./drv/video.c 		-o ./bin/video.o 
+	$(CC) $(CFLAGS) ./memory.c 			-o ./bin/memory.o 
 	$(CC) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc 	
-qemu: all
-	qemu-system-i386 -kernel vtos.bin 
+qemu: iso
+	qemu-system-i386 -cdrom vtos.iso
 iso: all
 	cp vtos.bin isofiles
 	grub-mkrescue -o vtos.iso isofiles
