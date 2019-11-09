@@ -3,7 +3,7 @@ ENTRY(_start)
 
 SECTIONS
 {
-	. = 0x00200000;
+	. = 0x00100000;
 	kernel_phys_start = .;
 
 	.text BLOCK(4K) : ALIGN(4K)
