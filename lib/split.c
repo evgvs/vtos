@@ -1,29 +1,19 @@
-// DO NOT USE THIS SHIT!!!!! 
-// IT DOESN'T WORK
-#include <string.h>  
 
-char* split (char str[], char* who, int c) 
-{  
-    // Returns first token  
-    char *token = strtok(str, who); 
+#include <string.h>
 
-    int count=0;
+char* str_split(char string[50], char* who , int c)
+{
 
-    char* massiv[10];
-    
-    // Keep printing tokens while one of the 
-    // delimiters present in str[]. 
-    //
-    while (token != NULL) 
-    { 
-	massiv[count++] = token;
-        token = strtok(NULL, who); 
-    } 
-  
-    return massiv[c];
-} 
+	int count=0;
+	char* massiv[15];
+	char * token = strtok(string, who);
 
-//	 printf ( split ( "raz dva tri" , " ", 1 ) );
+	while ( token != NULL )
+       	{
+		massiv[count++] = token;
+		token = strtok(NULL, who);
+	}
 
-	
+	return massiv[c];
+}
 
