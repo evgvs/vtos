@@ -2,8 +2,8 @@ image: alpine:3.7
 build:
   stage: build
   script:
-    - apk update && apk add make grub xorriso
-    - PATH="$(pwd)/i686-elf/bin:$PATH" && echo $PATH && make iso
+    - apk update && apk add make grub xorriso bash
+    - bash build.sh --iso
   artifacts:
     paths:
       - vtos.bin
