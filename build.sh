@@ -87,7 +87,7 @@ OPT(){
 
 ################
 
-unpack
+! [[ -f i686-elf ]] && unpack
 make
 OPT
 
