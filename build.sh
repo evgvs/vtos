@@ -3,7 +3,7 @@ CC="i686-elf-gcc"
 AS="i686-elf-as"
 CFLAGS="-std=gnu99 -ffreestanding -O0  -c "
 
-while [[ $1 ]]; do
+while [[ "$1" ]]; do
 	case $1 in
 		'--iso')
 			iso=1
@@ -22,6 +22,10 @@ while [[ $1 ]]; do
 			only=1
 			whatonly=$1
 		;;
+		'-w' | '--ignore-warnings')
+			CFLAGS="$CFLAGS -w"
+		;;
+
 	esac
 	shift
 done
