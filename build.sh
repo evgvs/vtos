@@ -1,6 +1,6 @@
 #!/bin/bash
-CC="bash $(pwd)/i686-elf/bin/i686-elf-gcc"
-AS="bash $(pwd)/i686-elf/bin/i686-elf-as "
+CC="i686-elf-gcc"
+AS="i686-elf-as"
 CFLAGS="-std=gnu99 -ffreestanding -O0  -c"
 
 while [[ $1 ]]; do
@@ -49,6 +49,7 @@ make(){
 
 
 CCG(){
+	export PATH="$(pwd)/i686-elf/bin:$PATH"
 	echo -e "Executing: " "\e[32m$CC $*\e[0m"
 	if [[ $hide1 ]]; then
 		! $CC $* 1>/dev/null && exit 2;
@@ -58,6 +59,7 @@ CCG(){
 }
 
 ASM(){
+	export PATH="$(pwd)/i686-elf/bin:$PATH"
 	echo -e "Executing: " "\e[32m$AS $*\e[0m"
 	if [[ $hide1 ]]; then
 		! $AS $* 1> /dev/null && exit 2;
