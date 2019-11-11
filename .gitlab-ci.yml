@@ -4,6 +4,7 @@ build:
   script:
     - uname -m 
     - apk update && apk add make grub xorriso bash
+    - cd vtos
     - bash build.sh --iso
   artifacts:
     paths:
