@@ -1,6 +1,6 @@
 #!/bin/bash
-CC="i686-elf-gcc"
-AS="i686-elf-as"
+CC="./i686-elf/bin/i686-elf-gcc"
+AS="./i686-elf/bin/i686-elf-as"
 CFLAGS="-std=gnu99 -ffreestanding -O0  -c "
 ASFLAGS=" "
 
