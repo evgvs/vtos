@@ -1,6 +1,6 @@
 #!/bin/bash
-CC="./i686-elf/bin/i686-elf-gcc"
-AS="./i686-elf/bin/i686-elf-as"
+CC="i686-elf-gcc"
+AS="i686-elf-as"
 CFLAGS="-std=gnu99 -ffreestanding -O0  -c "
 ASFLAGS=" "
 
@@ -30,6 +30,9 @@ while [[ "$1" ]]; do
 		'-h' | '--help') 
 			shhelp=1
 		;;
+		'-f')
+			nshf=1
+		;;
 
 	esac
 	shift
@@ -58,6 +61,14 @@ Keys:
 "
 }
 
+shf(){
+	! [[ $nshf ]] && echo $CFLAGS
+}
+
+shfa() {
+	! [[ $nshf ]] && echo $ASFLAGS
+}
+
 unpack(){
 	echo Unpacking i686-elf.tar.gz, please wait...
 	tar -xf i686-elf.tar.gz
@@ -65,47 +76,86 @@ unpack(){
 }
 
 make(){
-	mkdir                               -p isofiles/boot/grub/
-	mkdir                               -p ./bin/
+	mkdir                                   -p isofiles/boot/grub/
+	mkdir                                   -p ./bin/
 	mkdir                                   -p isofiles/boot/grub/
         mkdir                                   -p ./bin/
         $(AS) boot.s                            -o ./bin/boot.o
         $(AS) gdt_asm.s                         -o ./bin/gdt_asm.o
         $(AS) idt_asm.s                         -o ./bin/idt_asm.o
         $(AS) interrupts_asm.s                  -o ./bin/interrupts_asm.o
-        $(CC) $(CFLAGS) info.c                  -o ./bin/info.o
-        $(CC) $(CFLAGS) gdt.c                   -o ./bin/gdt.o
-        $(CC) $(CFLAGS) kernel.c                -o ./bin/kernel.o
-        $(CC) $(CFLAGS) idt.c                   -o ./bin/idt.o
-        $(CC) $(CFLAGS) panic.c                 -o ./bin/panic.o
-        $(CC) $(CFLAGS) interrupts.c            -o ./bin/interrupts.o
-        $(CC) $(CFLAGS) ./lib/string.c          -o ./bin/string.o
-        $(CC) $(CFLAGS) ./io/ports.c            -o ./bin/ports.o
-        $(CC) $(CFLAGS) ./drv/keyboard.c        -o ./bin/keyboard.o
-        $(CC) $(CFLAGS) ./drv/video.c           -o ./bin/video.o
-        $(CC) $(CFLAGS) ./memory.c              -o ./bin/memory.o
-        $(CC) $(CFLAGS) ./power.c               -o ./bin/power.o
+	$(AS) shutdown.s                        -o ./bin/shutdown.o
+        $(CC) info.c                  		-o ./bin/info.o
+        $(CC) gdt.c                   		-o ./bin/gdt.o
+        $(CC) kernel.c                		-o ./bin/kernel.o
+        $(CC) idt.c                   		-o ./bin/idt.o
+        $(CC) panic.c                           -o ./bin/panic.o
+        $(CC) interrupts.c            		-o ./bin/interrupts.o
+        $(CC) ./lib/string.c          		-o ./bin/string.o
+        $(CC) ./io/ports.c            		-o ./bin/ports.o
+        $(CC) ./drv/keyboard.c        		-o ./bin/keyboard.o
+        $(CC) ./drv/video.c           		-o ./bin/video.o
+        $(CC) ./memory.c                      	-o ./bin/memory.o
         $(CC) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
 }
 
-
+len(){
+	expr length  "$1"
+}
 CCG(){
 	export PATH="$(pwd)/i686-elf/bin:$PATH"
-	echo -e "\e[32m$CC 			$*\e[0m"
+	! [[ $nshf ]] && echo -e "Executing: " "\e[32m$CC $(shf) $*\e[0m"
 	if [[ $hide1 ]]; then
-		! $CC $* 1>/dev/null && exit 2;
+		! $CC $CFLAGS $* 1>/dev/null && exit 2;
+	elif ! [[ $nshf ]]; then
+		! $CC $CFLAGS $* && exit 2;
 	else
-		! $CC $* && exit 2;
+
+                size=$(stty size | awk '{print $2}')
+
+		let size=$size-$(len "Executing: ")
+		printf "Executing: "
+
+                size14=" "
+
+                let size=$size-$(len $CC)
+                printf "\e[32m$CC\e[0m"
+
+		let size=$size-$(len " $*")
+                while [[ ${size} > 0 ]]; do
+                        printf " " 
+                        let size=$size-1;
+                done
+
+                echo -ne "\e[33m $*\e[0m";
+		echo
+                ! $CC $CFLAGS $* && exit 2;
 	fi
 }
 
 ASM(){
 	export PATH="$(pwd)/i686-elf/bin:$PATH"
-	echo -e "\e[32m$AS 			$*\e[0m"
+	! [[ $nshf ]] && echo -e "Executing: " "\e[32m$AS $(shfa) $*\e[0m"
 	if [[ $hide1 ]]; then
 		! $AS $ASFLAGS $* 1> /dev/null && exit 2;
-	else
+	elif ! [[ $nshf ]]; then
 		! $AS $ASFLAGS $* && exit 2;
+	else
+		size=$(stty size | awk '{print $2}')                  
+                let size=$size-$(len "Executing: ")
+                printf "Executing: "
+                                                                                      size14=" "                                            
+                let size=$size-$(len $AS)
+                printf "\e[32m$AS\e[0m"
+
+                let size=$size-$(len "$*")
+                while [[ ${size} > 0 ]]; do                                                   printf " "
+                        let size=$size-1;                                             done
+
+                echo -ne "\e[33m$*\e[0m";
+                echo
+                ! $AS $ASFLAGS $* && exit 2;
+
 	fi
 }
 
@@ -128,7 +178,7 @@ OPT(){
 
 
 if [[ $onlykernel ]]; then
-$(CC) $(CFLAGS) kernel.c                -o ./bin/kernel.o
+$(CC)  kernel.c                -o ./bin/kernel.o
 $(CC) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
 exit 0;
 fi
@@ -142,7 +192,7 @@ done
 a=( $wo0 )
 wo=${a[$abc]}
 wo1=${wo::-2}
-$(CC) $(CFLAGS) ${whatonly}               -o ./bin/$wo1.o
+$(CC) ${whatonly}               -o ./bin/$wo1.o
 $(CC) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
 exit 0;
 fi
