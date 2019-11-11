@@ -2,6 +2,7 @@
 CC="i686-elf-gcc"
 AS="i686-elf-as"
 CFLAGS="-std=gnu99 -ffreestanding -O0  -c "
+ASFLAGS=" "
 
 while [[ "$1" ]]; do
 	case $1 in
@@ -24,6 +25,7 @@ while [[ "$1" ]]; do
 		;;
 		'-w' | '--ignore-warnings')
 			CFLAGS="$CFLAGS -w"
+			#ASFLAGS="$ASFLAGS -w"
 		;;
 
 	esac
@@ -72,11 +74,11 @@ CCG(){
 
 ASM(){
 	export PATH="$(pwd)/i686-elf/bin:$PATH"
-	echo -e "Executing: " "\e[32m$AS $*\e[0m"
+	echo -e "Executing: " "\e[32m$AS $ASFLAGS $*\e[0m"
 	if [[ $hide1 ]]; then
-		! $AS $* 1> /dev/null && exit 2;
+		! $AS $ASFLAGS $* 1> /dev/null && exit 2;
 	else
-		! $AS $* && exit 2;
+		! $AS $ASFLAGS $* && exit 2;
 	fi
 }
 
