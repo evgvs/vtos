@@ -44,17 +44,17 @@ make(){
 
 CCG(){
 	if [[ $hide1 ]]; then
-		! $CC $* 1>/dev/null && exit;
+		! $CC $* 1>/dev/null && exit 2;
 	else
-		! $CC $* && exit;
+		! $CC $* && exit 2;
 	fi
 }
 
 ASM(){
 	if [[ $hide1 ]]; then
-		! $AS $* 1> /dev/null && exit;
+		! $AS $* 1> /dev/null && exit 2;
 	else
-		! $AS $* && exit;
+		! $AS $* && exit 2;
 	fi
 }
 
