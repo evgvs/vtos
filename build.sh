@@ -49,7 +49,7 @@ make(){
 
 
 CCG(){
-	echo -e "Executing: " "\e[32m$CC $*\e[32m"
+	echo -e "Executing: " "\e[32m$CC $*\e[0m"
 	if [[ $hide1 ]]; then
 		! $CC $* 1>/dev/null && exit 2;
 	else
@@ -58,7 +58,7 @@ CCG(){
 }
 
 ASM(){
-	echo -e "Executing: " "\e[32m$AS $*\e[32m"
+	echo -e "Executing: " "\e[32m$AS $*\e[0m"
 	if [[ $hide1 ]]; then
 		! $AS $* 1> /dev/null && exit 2;
 	else
