@@ -137,7 +137,7 @@ void print_logo ( int with_info )
 	tty_printfl(0x0F, "                                      ");
 	tty_printfl(0x0F, "\n");
 	tty_printfl(0x0F, "\n");
-	tty_printfl(0x02, "                                       vtOS");
+	tty_printfl(0x02, "                                       vtOS\n");
 }
 
 int  y_itoa(int value,char *ptr)
@@ -227,6 +227,7 @@ void shell ()
 		else if ( strcmp ( cmd , "info" ) == 0 )
 		{
 			tty_printf(vtinfo_string(), 0x0f);
+			tty_printchar('\n', 0x0f);
 		}
 		else if ( strcmp ( cmd , "logo" ) == 0 )
 		{
