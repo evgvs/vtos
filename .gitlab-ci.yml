@@ -2,7 +2,7 @@ image: alpine:3.7
 build:
   stage: build
   script:
-    - apk update && apk install make
+    - apk update && apk add make grub xorriso
     - PATH="$(pwd)/i686-elf/bin:$PATH" make iso
   artifacts:
     paths:
