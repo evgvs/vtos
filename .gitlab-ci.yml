@@ -4,6 +4,7 @@ build:
   script:
     - uname -m 
     - apk update && apk add make grub xorriso bash
+    - tar -xf i686-elf.tar.gz
     - bash build.sh --iso
   artifacts:
     paths:
