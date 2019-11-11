@@ -12,5 +12,5 @@ char * vtver_string()
 
 char * vtinfo_string()
 {
-	return "vtOS 4 | 9 Nov 2019";
+	return "vtOS 4 | 10 Nov 2019";
 }
