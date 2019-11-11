@@ -49,6 +49,7 @@ make(){
 
 
 CCG(){
+	echo -e "\e[32m$CC $*\e[32m"
 	if [[ $hide1 ]]; then
 		! $CC $* 1>/dev/null && exit 2;
 	else
@@ -57,6 +58,7 @@ CCG(){
 }
 
 ASM(){
+	echo -e "\e[32m$AS $*\e[32m"
 	if [[ $hide1 ]]; then
 		! $AS $* 1> /dev/null && exit 2;
 	else
