@@ -1,6 +1,6 @@
 #!/bin/bash
-CC=$(pwd)/i686-elf/bin/i686-elf-gcc
-AS=$(pwd)/i686-elf/bin/i686-elf-as
+CC="bash $(pwd)/i686-elf/bin/i686-elf-gcc"
+AS="bash $(pwd)/i686-elf/bin/i686-elf-as "
 CFLAGS="-std=gnu99 -ffreestanding -O0  -c"
 
 while [[ $1 ]]; do
@@ -17,6 +17,12 @@ while [[ $1 ]]; do
 	esac
 	shift
 done
+
+unpack(){
+	echo Unpacking i686-elf.tar.gz, please wait...
+	tar -xf i686-elf.tar.gz
+	echo -e "\e[32mDone.\e[0m"
+}
 
 make(){
 	mkdir                               -p isofiles/boot/grub/
@@ -75,5 +81,12 @@ OPT(){
 	[[ $qemu ]] && qemu-system-x86_64 -kernel vtos.bin 
 }
 
+
+
+################
+
+unpack
 make
 OPT
+
+################
