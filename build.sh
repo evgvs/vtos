@@ -25,7 +25,7 @@ while [[ "$1" ]]; do
 		;;
 		'-w' | '--ignore-warnings')
 			CFLAGS="$CFLAGS -w"
-			#ASFLAGS="$ASFLAGS -w"
+			ASFLAGS="$ASFLAGS -W"
 		;;
 
 	esac
