@@ -84,12 +84,12 @@ make(){
         $(AS) gdt_asm.s                         -o ./bin/gdt_asm.o
         $(AS) idt_asm.s                         -o ./bin/idt_asm.o
         $(AS) interrupts_asm.s                  -o ./bin/interrupts_asm.o
-	#$(AS) shutdown.s                        -o ./bin/shutdown.o
         $(CC) info.c                  		-o ./bin/info.o
         $(CC) gdt.c                   		-o ./bin/gdt.o
         $(CC) kernel.c                		-o ./bin/kernel.o
         $(CC) idt.c                   		-o ./bin/idt.o
         $(CC) panic.c                           -o ./bin/panic.o
+        $(CC) power.c                           -o ./bin/power.o
         $(CC) interrupts.c            		-o ./bin/interrupts.o
         $(CC) ./lib/string.c          		-o ./bin/string.o
         $(CC) ./io/ports.c            		-o ./bin/ports.o

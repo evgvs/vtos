@@ -6,7 +6,7 @@
 #include "./io/ports.h"
 #include "./gdt.h"
 #include "./memory.h"
-#include "power.h"
+#include "./power.h"
 
 void tty_printfl ( int, char* );
 void print_logo ( int );
@@ -219,7 +219,7 @@ void shell ()
 			tty_printf("vtfetch ", 0x0E);
 			tty_printf("- show logo and release info\n", 0x0F);
 
-			tty_printf("----------------------------------", 0x0f);
+			tty_printf("----------------------------------\n", 0x0f);
 
 			tty_printf("panic-test ", 0x0E);
 			tty_printf("- call kernel panic\n", 0x0F);
