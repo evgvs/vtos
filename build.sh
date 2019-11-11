@@ -89,7 +89,7 @@ OPT(){
 
 ################
 
-! [[ -f i686-elf ]] && unpack
+! [[ -d $(pwd)/i686-elf/ ]] && unpack
 make
 OPT
 
