@@ -101,7 +101,13 @@ exit 0;
 fi
 
 if [[ $only ]]; then
-wo=$(ls $whatonly)
+wo0=$(echo $whatonly | tr "/" " ")
+abc=-1
+for w in $wo0; do
+let abc+=1;
+done
+a=( $wo0 )
+wo=${a[$abc]}
 wo1=${wo::-2}
 $(CC) $(CFLAGS) ${whatonly}               -o ./bin/$wo1.o
 $(CC) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
