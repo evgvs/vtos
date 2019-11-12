@@ -84,19 +84,19 @@ make(){
         $(AS) gdt_asm.s                         -o ./bin/gdt_asm.o
         $(AS) idt_asm.s                         -o ./bin/idt_asm.o
         $(AS) interrupts_asm.s                  -o ./bin/interrupts_asm.o
-	$(AS) shutdown.s                        -o ./bin/shutdown.o
         $(CC) info.c                  		-o ./bin/info.o
         $(CC) gdt.c                   		-o ./bin/gdt.o
         $(CC) kernel.c                		-o ./bin/kernel.o
         $(CC) idt.c                   		-o ./bin/idt.o
         $(CC) panic.c                           -o ./bin/panic.o
+        $(CC) power.c                           -o ./bin/power.o
         $(CC) interrupts.c            		-o ./bin/interrupts.o
         $(CC) ./lib/string.c          		-o ./bin/string.o
         $(CC) ./io/ports.c            		-o ./bin/ports.o
         $(CC) ./drv/keyboard.c        		-o ./bin/keyboard.o
         $(CC) ./drv/video.c           		-o ./bin/video.o
         $(CC) ./memory.c                      	-o ./bin/memory.o
-        $(CC) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
+        $(CCNA) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
 }
 
 len(){
@@ -159,6 +159,13 @@ ASM(){
 	fi
 }
 
+CCANAG(){
+	size=$(stty size | awk '{print $2}')
+	while [[ $size > 0 ]]; do echo -ne "\e[33m=\e[0m" && let size=$size-1; done
+	echo -e "Executing: \e[32m $CC $* -w \e[0m"
+	! $CC $* && exit 2
+}
+
 CFLAGS(){
 	echo $CFLAGS
 }
@@ -171,6 +178,10 @@ AS(){
 	echo ASM
 }
 
+CCNA(){
+	echo CCANAG
+}
+
 OPT(){
 	[[ $iso ]] && cp vtos.bin isofiles && grub-mkrescue -o vtos.iso isofiles
 	[[ $qemu ]] && qemu-system-x86_64 -kernel vtos.bin 
@@ -179,7 +190,7 @@ OPT(){
 
 if [[ $onlykernel ]]; then
 $(CC)  kernel.c                -o ./bin/kernel.o
-$(CC) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
+$(CCNA) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
 exit 0;
 fi
 
@@ -193,7 +204,7 @@ a=( $wo0 )
 wo=${a[$abc]}
 wo1=${wo::-2}
 $(CC) ${whatonly}               -o ./bin/$wo1.o
-$(CC) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
+$(CCNA) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
 exit 0;
 fi
 
