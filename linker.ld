@@ -3,7 +3,7 @@ ENTRY(_start)
 
 SECTIONS
 {
-	. = 0x00100000;
+	. = 0x100000;
 	kernel_phys_start = .;
 
 	.text BLOCK(4K) : ALIGN(4K)
@@ -32,6 +32,5 @@ SECTIONS
 		/* stack section -- see boot.s */
 		*(.bss)
 	}
-	kernel_phys_end = .;
-
+	end = .; _end = .; __end = .;
 }

@@ -2,15 +2,20 @@
 
 int vtver_int ()
 {
-	return 4;
+	return 5;
 } 
 
 char * vtver_string()
 {
-	return "4";
+	return "5";
 }
 
 char * vtinfo_string()
 {
-	return "vtOS 4 | 10 Nov 2019";
+	return "vtOS 5 | build date: 14 Nov 2019";
+}
+
+char * vtinfo_string_short()
+{
+	return "vtOS 5";
 }

@@ -5,32 +5,36 @@
 #include "./panic.h"
 #include "./io/ports.h"
 #include "./gdt.h"
-#include "./memory.h"
+#include "./memory/paging.h"
 #include "./power.h"
 #include "./tvsh.h"
-
-void tty_printfl ( int, char* );
-void print_logo ( int );
-void shell ();
+#include "./common.h"
 
 void kernel_init () {
 	display_clear(0x00);
+	tty_printchar('\n', 0x0f);
+	tty_printf("Display initialized\n", 0x0B);
 
     gdt_install();
-
     idt_install();
+    tty_printf("GDT & IDT initialized\n", 0x0B);
 
 	interrupt_disable_all();
 
 	keyboard_install();
+	tty_printf("Keyboard initializedn\n", 0x0B);
 
 	interrupt_enable_all();
+	tty_printf("Interrupts enabled\n", 0x0B);
 
-	tty_printchar('\n', 0x0f);
-
+	initialise_paging();
+	tty_printf("Memory manager started\n", 0x0B);
+	tty_printf("Welcome to ", 0x0f);
 	tty_printf(vtinfo_string(), 0x0f);
 
 	tty_printchar('\n', 0x0f);
+
+	
 
 	tvsh_shell();
 }

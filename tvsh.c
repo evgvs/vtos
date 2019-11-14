@@ -31,6 +31,9 @@ void tvsh_shell ()
 
 			tty_printf("vtfetch ", 0x0E);
 			tty_printf("- show logo and release info\n", 0x0F);
+
+			tty_printf("changelog ", 0x0E);
+			tty_printf("- see what's new in this vtOS release\n", 0x0F);
 		}
 		else if ( strcmp ( cmd , "help --dev" ) == 0 )
 		{
@@ -49,6 +52,9 @@ void tvsh_shell ()
 
 			tty_printf("vtfetch ", 0x0E);
 			tty_printf("- show logo and release info\n", 0x0F);
+
+			tty_printf("changelog ", 0x0E);
+			tty_printf("- see what's new in this vtOS release\n", 0x0F);
 
 			tty_printf("----------------------------------\n", 0x0f);
 
@@ -79,6 +85,14 @@ void tvsh_shell ()
 		else if ( strcmp ( cmd , "panic-test" ) == 0 )
 		{
 			panic("test panic");
+		}
+		else if ( strcmp ( cmd , "changelog" ) == 0 )
+		{
+			tty_printf("New in vtOS 5:\n", 0x0f);
+			tty_printf("Memory paging and kernel heap\n", 0x0f);
+			tty_printf("Bugfixes\n", 0x0f);
+			tty_printf("This info\n", 0x0f);
+			tty_printf("Init and shell are now separated\n", 0x0f);
 		}
 		else if ( strcmp( cmd , "" ) == 0 )
 		{

@@ -59,14 +59,12 @@ void tty_printf(const char *string, int color)
 			cursor_pos = cursor_current_line * TERM_SIZE_X * 2;
 			if(cursor_current_line > TERM_SIZE_Y - 1)
 				tty_scroll();
-			return;
 			break;
-		}
+		} 
 		video[cursor_pos++] = *string++;
 		video[cursor_pos++] = color;
 	}
 }
-
 void tty_printchar(char char1, int color) 
 {
 	if( char1 == '\n' ) 

@@ -1,8 +1,3 @@
-/*
-*    EOS - Experimental Operating System
-*    GDT setup functions
-*/
-
 #include "./drv/video.h"
 #include "gdt.h"
  
