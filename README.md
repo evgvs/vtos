@@ -1,12 +1,8 @@
 # vtOS - open source operating system 
 
 ## Build & run
-
-### Enter build environment
-
 ```
-$ ./env.sh
-(vtos_env) $ make qemu # build and test in a qemu vm
+$ ./build.sh --test -w # build and test in a qemu vm
 ```
 ## Features
 *  Kernel
@@ -24,7 +20,7 @@ Make sure that legacy boot support (There is no UEFI video driver in vtOS), lega
 
 ### Make an ISO file
 ```
-$ make iso
+$ ./build.sh --iso -w
 ```
 ### Write ISO file on disk
 ```
