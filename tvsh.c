@@ -1,7 +1,7 @@
 #include "tvsh.h"
 #include "./memory/kheap.h"
 #include "./lib/string.h"
-
+#include "./power.h"
 void tvsh_shell ()
 {
 	char* PS1 = "[vtos | tvsh]$";
@@ -108,6 +108,10 @@ void tvsh_shell ()
 		else if ( strcmp ( cmd , "panic-test" ) == 0 )
 		{
 			panic("test panic");
+		}
+		else if ( strcmp ( cmd , "reboot" ) == 0 )
+		{
+			reboot();
 		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{
