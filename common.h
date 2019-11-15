@@ -5,5 +5,5 @@ typedef          int   s32int;
 typedef unsigned short u16int;
 typedef          short s16int;
 typedef unsigned char  u8int;
-typedef          char  s8int;
-#endif
+typedef          char  s8int;                                                                                                                                                                         
+#endif // COMMON_H                                                                                                                                                              

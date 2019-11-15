@@ -97,6 +97,7 @@ make(){
         $(CC) ./drv/keyboard.c        		-o ./bin/keyboard.o
         $(CC) ./drv/video.c           		-o ./bin/video.o
         $(CC) ./memory/kheap.c            	-o ./bin/kheap.o
+        $(CC) ./memory/ordered_array.c      -o ./bin/ordered_array.o
         $(CC) ./memory/paging.c				-o ./bin/paging.o -masm=intel
         $(CCNA) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc 
 }

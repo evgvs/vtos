@@ -17,7 +17,7 @@ size_t      strlen (const char*);
 //size_t utf8_strlen (const uint32_t*);
 
 int   atoi(const char*);
-char* itoa(int, char*, int);
+char* itoa(int);
 int   memcmp(const void*, const void*, size_t);
 void* memmove(void* , void* , size_t);
 void* memset(void*, uint8_t, size_t);

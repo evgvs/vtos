@@ -12,10 +12,10 @@ char * vtver_string()
 
 char * vtinfo_string()
 {
-	return "vtOS 5 | build date: 15 Nov 2019";
+	return "vtOS 5.1 | build date: 15 Nov 2019";
 }
 
 char * vtinfo_string_short()
 {
-	return "vtOS 5";
+	return "vtOS 5.1";
 }

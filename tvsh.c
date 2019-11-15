@@ -1,4 +1,6 @@
 #include "tvsh.h"
+#include "./memory/kheap.h"
+#include "./lib/string.h"
 
 void tvsh_shell ()
 {
@@ -39,18 +41,18 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "help --dev" ) == 0 )
 		{
-			tty_printf("Available commands:\n ", 0x0F);
+			tty_printf("Available commands:\n", 0x0F);
 			tty_printf("help ", 0x0E);
-			tty_printf("- show this list\n ", 0x0F);
+			tty_printf("- show this list\n", 0x0F);
 
 			tty_printf("info ", 0x0E);
-			tty_printf("- show release info\n ", 0x0F);
+			tty_printf("- show release info\n", 0x0F);
 
 			tty_printf("clear ", 0x0E);
 			tty_printf("- clear screen\n", 0x0F);
 
 			tty_printf("reboot ", 0x0E);
-			tty_printf("- reboot system\n ", 0x0F);
+			tty_printf("- reboot system\n", 0x0F);
 
 			tty_printf("vtfetch ", 0x0E);
 			tty_printf("- show logo and release info\n", 0x0F);
@@ -62,6 +64,9 @@ void tvsh_shell ()
 
 			tty_printf("panic-test ", 0x0E);
 			tty_printf("- call kernel panic\n", 0x0F);
+
+			tty_printf("malloc-test ", 0x0E);
+			tty_printf("- test vtOS kernel memory allocation\n", 0x0F);
 		}
 		else if ( strcmp ( cmd , "info" ) == 0 )
 		{
@@ -80,11 +85,25 @@ void tvsh_shell ()
 		{
 			display_clear(0x00);
 		}
-		else if ( strcmp ( cmd , "r test" ) == 0 )
+		else if ( strcmp ( cmd , "malloc-test" ) == 0 )
 		{
-			tty_printf("press any key...", 0x0f);
-			keyboard_getchar();
-			tty_printf("\rRewrite test!!!!\n", 0x0A);
+			int *a;  
+			int i, n;
+			tty_printf("enter int array size: ",0x0f);
+			n = atoi(keyboard_getstring());
+			a = (int*)kmalloc(n * sizeof(int));
+			for (i = 0; i<n; i++)
+			{
+				tty_printf("enter element of array: ", 0x0f);
+				a[i] = atoi(keyboard_getstring());
+			}
+			tty_printf("your dynamic array: ");
+			for (i = 0; i<n; i++) {
+				tty_printf(itoa(a[i]), 0x0f);
+				tty_printf(" ", 0x0f);
+			}
+			kfree(a);
+			tty_printf("\nArray deleted. Memory cleaned.\n");
 		}
 		else if ( strcmp ( cmd , "panic-test" ) == 0 )
 		{

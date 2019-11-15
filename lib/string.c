@@ -27,6 +27,28 @@ int atoi(const char* string)
 	return ret;
 }
 
+char *itoa(int i)
+{
+  /* Room for INT_DIGITS digits, - and '\0' */
+  static char buf[19 + 2];
+  char *p = buf + 19 + 1;	/* points to terminating '\0' */
+  if (i >= 0) {
+    do {
+      *--p = '0' + (i % 10);
+      i /= 10;
+    } while (i != 0);
+    return p;
+  }
+  else {			/* i < 0 */
+    do {
+      *--p = '0' - (i % 10);
+      i /= 10;
+    } while (i != 0);
+    *--p = '-';
+  }
+  return p;
+}
+
 char* strrev(char* s)
 {
 	unsigned int i, j;
