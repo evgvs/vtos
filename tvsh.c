@@ -1,3 +1,5 @@
+#include "tvsh.h"
+
 void tvsh_shell ()
 {
 	char* PS1 = "[vtos | tvsh]$";
@@ -15,16 +17,16 @@ void tvsh_shell ()
 
 		if ( strcmp ( cmd , "help" ) == 0 )
 		{
-			tty_printf("Available commands:\n ", 0x0F);
+			tty_printf("Available commands:\n", 0x0F);
 
 			tty_printf("help ", 0x0E);
-			tty_printf("- show this list\n ", 0x0F);
+			tty_printf("- show this list\n", 0x0F);
 
 			tty_printf("reboot ", 0x0E);
-			tty_printf("- reboot system\n ", 0x0F);
+			tty_printf("- reboot system\n", 0x0F);
 
 			tty_printf("info ", 0x0E);
-			tty_printf("- show release info\n ", 0x0F);
+			tty_printf("- show release info\n", 0x0F);
 
 			tty_printf("clear ", 0x0E);
 			tty_printf("- clear screen\n", 0x0F);
@@ -78,9 +80,11 @@ void tvsh_shell ()
 		{
 			display_clear(0x00);
 		}
-		else if ( strcmp ( cmd , "reboot" ) == 0 )
+		else if ( strcmp ( cmd , "r test" ) == 0 )
 		{
-			reboot();
+			tty_printf("press any key...", 0x0f);
+			keyboard_getchar();
+			tty_printf("\rRewrite test!!!!\n", 0x0A);
 		}
 		else if ( strcmp ( cmd , "panic-test" ) == 0 )
 		{
@@ -88,11 +92,7 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{
-			tty_printf("New in vtOS 5:\n", 0x0f);
-			tty_printf("Memory paging and kernel heap\n", 0x0f);
-			tty_printf("Bugfixes\n", 0x0f);
-			tty_printf("This info\n", 0x0f);
-			tty_printf("Init and shell are now separated\n", 0x0f);
+			tty_printf("New in vtOS 5:\nMemory paging and kernel heap\nBugfixes\nThis info\nInit and shell are now separated\nMultiple /n in string support\nRewrite line support (/r)\n", 0x0f);
 		}
 		else if ( strcmp( cmd , "" ) == 0 )
 		{

@@ -1,5 +1,5 @@
 #include "video.h"
-
+#include "../lib/string.h"
 
 const int TERM_SIZE_X = 80;
 const int TERM_SIZE_Y = 25;
@@ -53,16 +53,7 @@ void tty_printf(const char *string, int color)
 {
 	while( *string != 0 ) 
 	{
-		if( *string == '\n') 
-		{
-			cursor_current_line++;
-			cursor_pos = cursor_current_line * TERM_SIZE_X * 2;
-			if(cursor_current_line > TERM_SIZE_Y - 1)
-				tty_scroll();
-			break;
-		} 
-		video[cursor_pos++] = *string++;
-		video[cursor_pos++] = color;
+		tty_printchar(*string++, color);
 	}
 }
 void tty_printchar(char char1, int color) 
@@ -81,6 +72,11 @@ void tty_printchar(char char1, int color)
 		video[cursor_pos++] = ' ';
 		video[cursor_pos++] = color;
 		cursor_pos -= 2;
+		return;
+	}
+	if ( char1 == '\r' )
+	{
+		cursor_pos = cursor_current_line * 80 * 2;
 		return;
 	}
 	video[cursor_pos++] = char1;
