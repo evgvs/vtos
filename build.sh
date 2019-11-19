@@ -79,7 +79,7 @@ make(){
 	mkdir                                   -p isofiles/boot/grub/
 	mkdir                                   -p ./bin/
 	mkdir                                   -p isofiles/boot/grub/
-        mkdir                               -p ./bin/
+    rm -rf ./bin/*.o
         $(AS) boot.s                        -o ./bin/boot.o
         $(AS) gdt_asm.s                     -o ./bin/gdt_asm.o
         $(AS) idt_asm.s                     -o ./bin/idt_asm.o
