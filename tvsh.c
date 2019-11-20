@@ -2,6 +2,8 @@
 #include "./memory/kheap.h"
 #include "./lib/string.h"
 #include "./power.h"
+#include "./lib/split.c"
+
 void tvsh_shell ()
 {
 	char* PS1 = "[vtos | tvsh]$";
@@ -10,10 +12,31 @@ void tvsh_shell ()
 		//tty_printf("\n",0x0F);
 		tty_printf(PS1, 0x07);
 		tty_printf(" ", 0x0F);
-		char* kgs = keyboard_getstring();
+
+		char kgs[200];
+		char* kgo = keyboard_getstring();
+		// tty_printf(kgo , 0x0f );
+
+	       	strcpy ( kgs , kgo  );
+		
 		// tty_printf(kgs, 0x0f);
 		//TODO: arguments
-		char* cmd = kgs ;
+		
+
+		char* cmd = strtok ( kgs  , " " );
+		char* arg1= strtok ( NULL , " " );
+		char* arg2= strtok ( NULL , " " );
+		char* arg3= strtok ( NULL , " " );
+		char* arg4= strtok ( NULL , " " );
+		char* arg5= strtok ( NULL , " " );
+		char* arg6= strtok ( NULL , " " );
+		char* arg7= strtok ( NULL , " " );
+		char* arg8= strtok ( NULL , " " );
+		char* arg9= strtok ( NULL , " " );
+
+
+
+		//tty_printf( str_split ( kgs , " " , 1) , 0x0f );
 
 		//tty_printf("\n",0x0f);
 
@@ -73,6 +96,42 @@ void tvsh_shell ()
 			tty_printf(vtinfo_string(), 0x0f);
 			tty_printchar('\n', 0x0f);
 		}
+		else if ( strcmp ( cmd , "echo" ) == 0 )
+		{
+			int len = str_sptlen ( kgs , " " );
+			int z = 0;
+			while ( z < len )
+			{
+				tty_printf ( str_split ( kgs , " " , 0 ) );
+				tty_printf ( " ", 0x0f );
+				z++;
+			}
+
+		}
+		else if ( strcmp ( cmd , "args" ) == 0 )
+		{
+			tty_printf("arg1: ", 0x0f);
+			tty_printf(arg1, 0x0f);
+			tty_printf("\n", 0x0f);
+			tty_printf("arg2: ", 0x0f);
+			tty_printf(arg2, 0x0f);
+			tty_printf("\n", 0x0f);
+			tty_printf("arg3: ", 0x0f);
+			tty_printf(arg3, 0x0f);                                               tty_printf("\n", 0x0f);
+			tty_printf("arg4: ", 0x0f);
+			tty_printf(arg4, 0x0f);                                               tty_printf("\n", 0x0f);
+			tty_printf("arg5: ", 0x0f);
+			tty_printf(arg5, 0x0f);                                               tty_printf("\n", 0x0f);
+			tty_printf("arg6: ", 0x0f);
+			tty_printf(arg6, 0x0f);                                               tty_printf("\n", 0x0f);
+			tty_printf("arg7: ", 0x0f);
+			tty_printf(arg7, 0x0f);                                               tty_printf("\n", 0x0f);
+			tty_printf("arg8: ", 0x0f);
+			tty_printf(arg8, 0x0f);                                               tty_printf("\n", 0x0f);
+			tty_printf("arg9: ", 0x0f);
+			tty_printf(arg9, 0x0f);                                               tty_printf("\n", 0x0f);
+
+		}
 		else if ( strcmp ( cmd , "logo" ) == 0 )
 		{
 			print_logo(0);
@@ -115,7 +174,7 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{
-			tty_printf("New in vtOS 5:\nMemory paging and kernel heap\nBugfixes\nThis info\nInit and shell are now separated\nMultiple /n in string support\nRewrite line support (/r)\n", 0x0f);
+			tty_printf("New in vtos 5: \nShell arguments. \n'args' command to test arguments.\n", 0x0f);
 		}
 		else if ( strcmp( cmd , "" ) == 0 )
 		{
