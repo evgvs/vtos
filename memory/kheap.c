@@ -324,10 +324,6 @@ void free(void *p, heap_t *heap)
     header_t *header = (header_t*) ( (u32int)p - sizeof(header_t) );
     footer_t *footer = (footer_t*) ( (u32int)header + header->size - sizeof(footer_t) );
 
-    // Sanity checks.
-    //ASSERT(header->magic == HEAP_MAGIC);
-    //ASSERT(footer->magic == HEAP_MAGIC);
-
     // Make us a hole.
     header->is_hole = 1;
 
@@ -363,13 +359,11 @@ void free(void *p, heap_t *heap)
                 (lookup_ordered_array(iterator, &heap->index) != (void*)test_header) )
             iterator++;
 
-        // Make sure we actually found the item.
-        //ASSERT(iterator < heap->index.size);
         // Remove it.
         remove_ordered_array(iterator, &heap->index);
     }
 
-    // If the footer location is the end address, we can contract.
+    //If the footer location is the end address, we can contract.
     if ( (u32int)footer+sizeof(footer_t) == heap->end_address)
     {
         u32int old_length = heap->end_address-heap->start_address;
@@ -399,5 +393,4 @@ void free(void *p, heap_t *heap)
     // If required, add us to the index.
     if (do_add == 1)
         insert_ordered_array((void*)header, &heap->index);
-
 }

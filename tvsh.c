@@ -2,7 +2,6 @@
 #include "./memory/kheap.h"
 #include "./lib/string.h"
 #include "./power.h"
-#include "./lib/split.c"
 
 void tvsh_shell ()
 {
@@ -20,7 +19,7 @@ void tvsh_shell ()
 	       	strcpy ( kgs , kgo  );
 		
 		// tty_printf(kgs, 0x0f);
-		//TODO: arguments
+		//TODO: split lib
 		
 
 		char* cmd = strtok ( kgs  , " " );
@@ -33,8 +32,6 @@ void tvsh_shell ()
 		char* arg7= strtok ( NULL , " " );
 		char* arg8= strtok ( NULL , " " );
 		char* arg9= strtok ( NULL , " " );
-
-
 
 		//tty_printf( str_split ( kgs , " " , 1) , 0x0f );
 
@@ -75,7 +72,10 @@ void tvsh_shell ()
 			tty_printf("- call kernel panic\n", 0x0F);
 
 			tty_printf("malloc-test ", 0x0E);
-			tty_printf("- test vtOS kernel memory allocation\n", 0x0F);
+			tty_printf("- memory allocation demo 1 - dynamic array\n", 0x0F);
+
+			tty_printf("kmalloc [size] ", 0x0E);
+			tty_printf("- try allocate [size] bytes \n", 0x0F);
 			}
 		}
 		else if ( strcmp ( cmd , "info" ) == 0 )
@@ -151,8 +151,9 @@ void tvsh_shell ()
 				tty_printf(itoa(a[i]), 0x0f);
 				tty_printf(" ", 0x0f);
 			}
-			kfree(a);
-			tty_printf("\nArray deleted. Memory cleaned.\n");
+			tty_printchar('\n', 0x0f);
+			//kfree(a);
+			//tty_printf("\nArray deleted. Memory cleaned.\n");
 		}
 		else if ( strcmp ( cmd , "panic-test" ) == 0 )
 		{
@@ -162,9 +163,19 @@ void tvsh_shell ()
 		{
 			reboot();
 		}
+		else if ( strcmp( cmd , "kmalloc") == 0)
+		{
+			char * a;
+			*a = (char*)kmalloc(sizeof(char) * atoi(arg1));
+			for (int i = 0; i < atoi(arg1); i++)
+			{
+				a[i] = 'f';
+			}
+			tty_printf("OK\n", 0x0f);
+		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{
-			tty_printf("New in vtos 5: \nsetps1 command\n", 0x0f);
+			tty_printf("New in vtos 5.2: \nsetps1 command\nshell arguments\nhiger half kernel\n", 0x0f);
 		}
 		else if ( strcmp ( cmd , "setps1" ) == 0 )
 		{

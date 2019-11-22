@@ -187,7 +187,7 @@ CCNA(){
 
 OPT(){
 	[[ $iso ]] && cp vtos.bin isofiles && grub-mkrescue -o vtos.iso isofiles
-	[[ $qemu ]] && qemu-system-x86_64 -kernel vtos.bin 
+	[[ $qemu ]] && qemu-system-x86_64 -kernel vtos.bin -m 64
 }
 
 

@@ -1,5 +1,5 @@
 ﻿#include "string.h"
-
+#include "../memory/kheap.h"
 #include <stdint.h>
 #include <stdbool.h>
 

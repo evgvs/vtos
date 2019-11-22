@@ -27,8 +27,8 @@ void kernel_init () {
 	interrupt_enable_all();
 	tty_printf("Interrupts enabled\n", 0x0B);
 
-	initialise_paging();
-	tty_printf("Memory manager started\n", 0x0B);
+	//initialise_paging(); //paging is already enabled in higer half
+
 	tty_printf("Welcome to ", 0x0f);
 	tty_printf(vtinfo_string(), 0x0f);
 
@@ -37,6 +37,7 @@ void kernel_init () {
 	
 
 	tvsh_shell();
+	return;
 }
 
 void tty_printfl ( int color , char* str )
