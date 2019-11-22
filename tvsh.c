@@ -47,6 +47,9 @@ void tvsh_shell ()
 			tty_printf("help ", 0x0E);
 			tty_printf("- show this list\n", 0x0F);
 
+			tty_printf("echo ", 0x0E);
+			tty_printf("- print text\n", 0x0F);
+
 			tty_printf("reboot ", 0x0E);
 			tty_printf("- reboot system\n", 0x0F);
 
@@ -61,35 +64,19 @@ void tvsh_shell ()
 
 			tty_printf("changelog ", 0x0E);
 			tty_printf("- see what's new in this vtOS release\n", 0x0F);
-		}
-		else if ( strcmp ( cmd , "help --dev" ) == 0 )
-		{
-			tty_printf("Available commands:\n", 0x0F);
-			tty_printf("help ", 0x0E);
-			tty_printf("- show this list\n", 0x0F);
-
-			tty_printf("info ", 0x0E);
-			tty_printf("- show release info\n", 0x0F);
-
-			tty_printf("clear ", 0x0E);
-			tty_printf("- clear screen\n", 0x0F);
-
-			tty_printf("reboot ", 0x0E);
-			tty_printf("- reboot system\n", 0x0F);
-
-			tty_printf("vtfetch ", 0x0E);
-			tty_printf("- show logo and release info\n", 0x0F);
-
-			tty_printf("changelog ", 0x0E);
-			tty_printf("- see what's new in this vtOS release\n", 0x0F);
-
+			if ( strcmp ( arg1 , "--dev" ) )
+			{
 			tty_printf("----------------------------------\n", 0x0f);
+
+			tty_printf("args ", 0x0E);
+			tty_printf("- test shell arguments\n", 0x0F);
 
 			tty_printf("panic-test ", 0x0E);
 			tty_printf("- call kernel panic\n", 0x0F);
 
 			tty_printf("malloc-test ", 0x0E);
 			tty_printf("- test vtOS kernel memory allocation\n", 0x0F);
+			}
 		}
 		else if ( strcmp ( cmd , "info" ) == 0 )
 		{
@@ -98,14 +85,17 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "echo" ) == 0 )
 		{
-			int len = str_sptlen ( kgs , " " );
-			int z = 0;
-			while ( z < len )
-			{
-				tty_printf ( str_split ( kgs , " " , 0 ) );
-				tty_printf ( " ", 0x0f );
-				z++;
-			}
+                        tty_printf(arg1, 0x0f);                                               tty_printf(" ", 0x0f);
+			tty_printf(arg2, 0x0f);
+                        tty_printf(" ", 0x0f);
+                        tty_printf(arg3, 0x0f);                                               tty_printf(" ", 0x0f);
+                        tty_printf(arg4, 0x0f);                                               tty_printf(" ", 0x0f);                      
+                        tty_printf(arg5, 0x0f);                                               tty_printf(" ", 0x0f);                                                tty_printf(arg6, 0x0f);                                               tty_printf(" ", 0x0f);                       
+                        tty_printf(arg7, 0x0f);
+                        tty_printf(" ", 0x0f);
+                        tty_printf(arg8, 0x0f);
+                        tty_printf(" ", 0x0f);                                                tty_printf(arg9, 0x0f);                                               tty_printf(" ", 0x0f);
+			tty_printf("\n", 0x0f);
 
 		}
 		else if ( strcmp ( cmd , "args" ) == 0 )
@@ -174,7 +164,7 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{
-			tty_printf("New in vtos 5: \nShell arguments. \n'args' command to test arguments.\n", 0x0f);
+			tty_printf("New in vtos 5: \necho command\nhelp command update", 0x0f);
 		}
 		else if ( strcmp( cmd , "" ) == 0 )
 		{
