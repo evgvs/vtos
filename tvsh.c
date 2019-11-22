@@ -164,7 +164,19 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{
-			tty_printf("New in vtos 5: \necho command\nhelp command update\n", 0x0f);
+			tty_printf("New in vtos 5: \nsetps1 command\n", 0x0f);
+		}
+		else if ( strcmp ( cmd , "setps1" ) == 0 )
+		{
+			if ( strcmp ( arg1 , "setps1" ) == 0 )
+			{
+				tty_printf ( "PS1 cat't be blank.\n" , 0x0f );
+			}
+			else
+			{
+				strcpy ( PS1 , arg1 );
+				tty_printf ( "Done.\n" , 0x0f );
+			}
 		}
 		else if ( strcmp( cmd , "" ) == 0 )
 		{
