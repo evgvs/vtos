@@ -64,7 +64,7 @@ void tvsh_shell ()
 
 			tty_printf("changelog ", 0x0E);
 			tty_printf("- see what's new in this vtOS release\n", 0x0F);
-			if ( strcmp ( arg1 , "--dev" ) )
+			if ( strcmp ( arg1 , "--dev" ) == 0 )
 			{
 			tty_printf("----------------------------------\n", 0x0f);
 
@@ -164,7 +164,7 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{
-			tty_printf("New in vtos 5: \necho command\nhelp command update", 0x0f);
+			tty_printf("New in vtos 5: \necho command\nhelp command update\n", 0x0f);
 		}
 		else if ( strcmp( cmd , "" ) == 0 )
 		{
