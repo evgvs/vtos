@@ -56,6 +56,9 @@ void tvsh_shell ()
 			tty_printf("info ", 0x0E);
 			tty_printf("- show release info\n", 0x0F);
 
+			tty_printf("calc x [+,-,*,/] y ", 0x0E);
+			tty_printf("calculator\n", 0x0F);
+
 			tty_printf("clear ", 0x0E);
 			tty_printf("- clear screen\n", 0x0F);
 
@@ -164,7 +167,7 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{
-			tty_printf("New in vtos 5: \nsetps1 command\n", 0x0f);
+			tty_printf("New in vtos 5: \ncalc command.\n", 0x0f);
 		}
 		else if ( strcmp ( cmd , "setps1" ) == 0 )
 		{
@@ -176,6 +179,46 @@ void tvsh_shell ()
 			{
 				strcpy ( PS1 , arg1 );
 				tty_printf ( "Done.\n" , 0x0f );
+			}
+		}
+		else if ( strcmp ( cmd , "calc" ) == 0 )
+		{
+			int c1 = atoi ( arg1 );
+			int c2 = atoi ( arg3 );
+
+			if ( strcmp ( arg2 , "+" ) == 0 )
+			{
+				tty_printf( itoa ( c1 + c2 ) , 0x0f );
+				tty_printf("\n",0x0f);
+			}
+			else if ( strcmp ( arg2 , "-" ) == 0 )
+                        {
+                                tty_printf( itoa ( c1 - c2 ) , 0x0f );
+                                tty_printf("\n",0x0f);
+			}
+			else if ( strcmp ( arg2 , "*" ) == 0 )
+                        {
+                                tty_printf( itoa ( c1 * c2 ) , 0x0f );
+                                tty_printf("\n",0x0f);
+			}
+			else if ( strcmp ( arg2 , "/" ) == 0 )
+                        {
+				if ( strcmp ( arg3 , "0" ) == 0 )
+				{
+					tty_printf ( "Error: ", 0x04 );
+					tty_printf ( "division by zero." ,0x0f);
+				}
+				else if ( strcmp ( arg3 , "/" ) == 0 )
+				{
+					tty_printf ( "Error: ", 0x04 );
+					tty_printf ( "Illegal argument." ,0x0f);
+				}
+				else
+				{
+                                tty_printf( itoa ( c1 / c2 ) , 0x0f );
+				}
+
+                                tty_printf("\n",0x0f);
 			}
 		}
 		else if ( strcmp( cmd , "" ) == 0 )
