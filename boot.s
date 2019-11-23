@@ -58,6 +58,7 @@ _boot_page_directory:
     #.long 0x00000083
     #.fill (1024 - KERNEL_PAGE_NUMBER - 1), 4, 0x00000000
 
+# We will get bootloop without this shit
 .long 0x00000083
 .long 0x00400083
 .long 0x00800083
@@ -1083,31 +1084,6 @@ _boot_page_directory:
 .long 0xff800083
 .long 0xffc00083
 
-
-    #try to identity map all the memory
-    #SUM 0x00000083,0x408C00083
-    #.set i, 0x00000083
-    #.rept 1024
-    #    .long i
-    #    .set i, i+0x00400000
-    #.endr
-
-
-
-    #next two lines of comments is rubbish delete them
-    #.fill (1024 - KERNEL_PAGE_NUMBER - 2), 4, 0x00000000
-    #.long (_boot_page_directory | 0x00000003) #store the page dir as the last entry in itself (fractal mapping)
-
-#Why 0x00000083
-# the first entry identity maps the first 4MB of memory
-# All bits are clear except the following:
-# bit 7: PS The kernel page is 4MB.
-# bit 1: RW The kernel page is read/write.
-# bit 0: P  The kernel page is present.
-# 0x00000083 in binary this is 10000011
-
-
-#Text section
 .section .text
 .global _loader
 _loader:
