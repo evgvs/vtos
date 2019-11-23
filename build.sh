@@ -1,8 +1,12 @@
 #!/bin/bash
 CC="i686-elf-gcc"
 AS="i686-elf-as"
-CFLAGS="-std=gnu99 -ffreestanding -O0  -c "
-ASFLAGS=" "
+CFLAGSO="-std=gnu99 -ffreestanding -O0  -c "
+ASFLAGSO=" "
+
+CFLAGS="$CFLAGSO -w"
+ASFLAGS="$ASFLAGSO -W"
+nshf=1
 
 while [[ "$1" ]]; do
 	case $1 in
@@ -11,6 +15,9 @@ while [[ "$1" ]]; do
 		;;
 		'--test')
 			qemu=1
+		;;
+	        '--test2')
+			qemu=2
 		;;
 		'--hide-1')
 			hide1=1
@@ -23,15 +30,15 @@ while [[ "$1" ]]; do
 			only=1
 			whatonly=$1
 		;;
-		'-w' | '--ignore-warnings')
-			CFLAGS="$CFLAGS -w"
-			ASFLAGS="$ASFLAGS -W"
+		'-w' | '--show-warnings')
+			CFLAGS="$CFLAGSO"
+			ASFLAGS="$ASFLAGSO"
 		;;
 		'-h' | '--help') 
 			shhelp=1
 		;;
 		'-f')
-			nshf=1
+			unset nshf
 		;;
 
 	esac
@@ -79,7 +86,7 @@ make(){
 	mkdir                                   -p isofiles/boot/grub/
 	mkdir                                   -p ./bin/
 	mkdir                                   -p isofiles/boot/grub/
-    rm -rf ./bin/*.o
+        rm -rf ./bin/*.o
         $(AS) boot.s                            -o ./bin/boot.o
         $(AS) gdt_asm.s                         -o ./bin/gdt_asm.o
         $(AS) idt_asm.s                         -o ./bin/idt_asm.o
@@ -187,7 +194,8 @@ CCNA(){
 
 OPT(){
 	[[ $iso ]] && cp vtos.bin isofiles && grub-mkrescue -o vtos.iso isofiles
-	[[ $qemu ]] && qemu-system-x86_64 -kernel vtos.bin -m 64
+	[[ $qemu == 1 ]] && qemu-system-x86_64 -cdrom vtos.iso -m 64 
+	[[ $qemu == 2 ]] && qemu-system-x86_64 -kernel vtos.iso -m 64
 }
 
 
