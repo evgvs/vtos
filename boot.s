@@ -1,9 +1,12 @@
+# Declare constants for the multiboot header
 .set ALIGN,		1<<0				# align loaded modules on page boundaries
 .set MEMINFO,	1<<1				# please provide us a memory map
-.set VBE_MODE, 1<<2       # VBE mode flag. GRUB will set it for us and provide info about it.
-.set FLAGS,		ALIGN | MEMINFO	| VBE_MODE	# multiboot "flag" field
+# .set VBE_MODE, 1<<2       # VBE mode flag. GRUB will set it for us and provide info about it.
+.set FLAGS,		ALIGN | MEMINFO	# | VBE_MODE	# multiboot "flag" field
 .set MAGIC,		0x1BADB002			# magic number to let the booloader find the header
 .set CHECKSUM,	-(MAGIC + FLAGS)	# Checksum of the above
+
+# NOW WE DONT NEED VBE
 
 # Declare a multiboot header that marks the program as a kernel.  These
 # are magic values that are documented in the multiboot standard.  The
@@ -15,7 +18,10 @@
 .align 4
 .long MAGIC
 .long FLAGS
-.long CHECKSUM
+.long CHECKSUM #if you dont need vbe comment longs after this line
+# .long 0, 0, 0, 0, 0 # unused?
+# .long 0 # 0 = set graphics mode
+# .long 1024, 768, 32 # Width, height, depth
 
 
 # The multiboot standard does not define the value of the stack pointer
@@ -47,6 +53,11 @@ stack_top:
 .align 0x1000
 .global _boot_page_directory
 _boot_page_directory:
+    #.long 0x00000083
+    #.fill (KERNEL_PAGE_NUMBER - 1), 4, 0x00000000
+    #.long 0x00000083
+    #.fill (1024 - KERNEL_PAGE_NUMBER - 1), 4, 0x00000000
+
 .long 0x00000083
 .long 0x00400083
 .long 0x00800083
@@ -1072,7 +1083,22 @@ _boot_page_directory:
 .long 0xff800083
 .long 0xffc00083
 
-# Why 0x00000083
+
+    #try to identity map all the memory
+    #SUM 0x00000083,0x408C00083
+    #.set i, 0x00000083
+    #.rept 1024
+    #    .long i
+    #    .set i, i+0x00400000
+    #.endr
+
+
+
+    #next two lines of comments is rubbish delete them
+    #.fill (1024 - KERNEL_PAGE_NUMBER - 2), 4, 0x00000000
+    #.long (_boot_page_directory | 0x00000003) #store the page dir as the last entry in itself (fractal mapping)
+
+#Why 0x00000083
 # the first entry identity maps the first 4MB of memory
 # All bits are clear except the following:
 # bit 7: PS The kernel page is 4MB.
@@ -1080,6 +1106,8 @@ _boot_page_directory:
 # bit 0: P  The kernel page is present.
 # 0x00000083 in binary this is 10000011
 
+
+#Text section
 .section .text
 .global _loader
 _loader:
@@ -1137,7 +1165,6 @@ _start:
 	# C function that is expecting the System V ABI.
 
 	call kernel_init
-
 	# As we have nothing left to do, we can go into an infinite loop.
 	# We disable interrupts (probably unnecessary, but if the kernel
 	# was buggy and enabled them then returned, we it's safest to fix 

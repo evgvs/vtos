@@ -7,6 +7,7 @@ SECTIONS {
      physical address space. */
   . = 0xC0100000;
 
+  kernel_virt_start = .;
   kernel_phys_start = . - 0xC0000000;
 
   .text : AT(ADDR(.text) - 0xC0000000) {
@@ -32,6 +33,7 @@ SECTIONS {
     . = ALIGN(0x1000);
   }
 
+  kernel_virt_end = .;
   kernel_phys_end = . - 0xC0000000;
   end = .;
 }

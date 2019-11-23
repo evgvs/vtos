@@ -2,7 +2,6 @@
 #include "./memory/kheap.h"
 #include "./lib/string.h"
 #include "./power.h"
-#include "./lib/split.c"
 
 void tvsh_shell ()
 {
@@ -57,7 +56,7 @@ void tvsh_shell ()
 			tty_printf("- show release info\n", 0x0F);
 
 			tty_printf("calc x [+,-,*,/] y ", 0x0E);
-			tty_printf("calculator\n", 0x0F);
+			tty_printf(" - calculator\n", 0x0F);
 
 			tty_printf("clear ", 0x0E);
 			tty_printf("- clear screen\n", 0x0F);
@@ -78,7 +77,10 @@ void tvsh_shell ()
 			tty_printf("- call kernel panic\n", 0x0F);
 
 			tty_printf("malloc-test ", 0x0E);
-			tty_printf("- test vtOS kernel memory allocation\n", 0x0F);
+			tty_printf("- vtOS kmalloc demo 1 - dynamic arrays\n", 0x0F);
+			
+			tty_printf("kmalloc [size] ", 0x0E);
+			tty_printf("- vtOS kmalloc demo 2 - try to kmalloc [size] in bytes\n", 0x0F);
 			}
 		}
 		else if ( strcmp ( cmd , "info" ) == 0 )
@@ -165,9 +167,17 @@ void tvsh_shell ()
 		{
 			reboot();
 		}
+   		else if ( strcmp( cmd , "kmalloc") == 0)
+    	{
+      		char * a;
+			*a = (char*)kmalloc(sizeof(char) * atoi(arg1));
+      		for (int i = 0; i < atoi(arg1); i++)
+        		*a++ = 'q';
+      		tty_printf("OK\n", 0x0f);
+   		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{
-			tty_printf("New in vtos 5: \ncalc command.\n", 0x0f);
+			tty_printf("New in vtos 5.3: \ncalc command\nhiger half kernel\n", 0x0f);
 		}
 		else if ( strcmp ( cmd , "setps1" ) == 0 )
 		{

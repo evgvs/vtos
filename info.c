@@ -7,15 +7,15 @@ int vtver_int ()
 
 char * vtver_string()
 {
-	return "5.2";
+	return "5.3";
 }
 
 char * vtinfo_string()
 {
-	return "vtOS 5.2 | build date: 22 Nov 2019";
+	return "vtOS 5.3 | build date: 22 Nov 2019";
 }
 
 char * vtinfo_string_short()
 {
-	return "vtOS 5.2";
+	return "vtOS 5.3";
 }

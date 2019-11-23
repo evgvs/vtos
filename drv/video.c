@@ -7,7 +7,7 @@ const int TERM_SIZE_Y = 25;
 int cursor_pos = 0;
 int cursor_current_line = 0;
 
-volatile char *video = (volatile char*)0xB8000; //video memory
+volatile char *video = (volatile char*)0xC00B8000; //video memory
 
 void display_clear(int color) 
 {
