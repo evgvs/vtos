@@ -2,7 +2,7 @@
 
 ## Build & run
 ```
-$ ./build.sh --test -w # build and test in a qemu vm
+$ ./build.sh --test # build and test in a qemu vm
 ```
 ## Features
 *  Kernel
@@ -20,7 +20,7 @@ Make sure that legacy boot support (There is no UEFI video driver in vtOS), lega
 
 ### Make an ISO file
 ```
-$ ./build.sh --iso -w
+$ ./build.sh
 ```
 ### Write ISO file on disk
 ```
