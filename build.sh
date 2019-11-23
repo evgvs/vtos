@@ -87,24 +87,24 @@ make(){
 	mkdir                                   -p ./bin/
 	mkdir                                   -p isofiles/boot/grub/
         rm -rf ./bin/*.o
-        $(AS) boot.s                            -o ./bin/boot.o
-        $(AS) gdt_asm.s                         -o ./bin/gdt_asm.o
-        $(AS) idt_asm.s                         -o ./bin/idt_asm.o
-        $(AS) interrupts_asm.s                  -o ./bin/interrupts_asm.o
+        $(AS) boot.s                        -o ./bin/boot.o
+        $(AS) gdt_asm.s                     -o ./bin/gdt_asm.o
+        $(AS) idt_asm.s                     -o ./bin/idt_asm.o
+        $(AS) interrupts_asm.s              -o ./bin/interrupts_asm.o
         $(CC) info.c                  		-o ./bin/info.o
         $(CC) gdt.c                   		-o ./bin/gdt.o
         $(CC) init.c                		-o ./bin/init.o
         $(CC) idt.c                   		-o ./bin/idt.o
-        $(CC) panic.c                           -o ./bin/panic.o
-        $(CC) power.c                           -o ./bin/power.o
+        $(CC) panic.c                       -o ./bin/panic.o
+        $(CC) power.c                       -o ./bin/power.o
         $(CC) interrupts.c            		-o ./bin/interrupts.o
-        $(CC) tvsh.c            		-o ./bin/tvsh.o
+        $(CC) tvsh.c            			-o ./bin/tvsh.o
         $(CC) ./lib/string.c          		-o ./bin/string.o
         $(CC) ./io/ports.c            		-o ./bin/ports.o
         $(CC) ./drv/keyboard.c        		-o ./bin/keyboard.o
         $(CC) ./drv/video.c           		-o ./bin/video.o
         $(CC) ./memory/kheap.c            	-o ./bin/kheap.o
-        $(CC) ./memory/ordered_array.c          -o ./bin/ordered_array.o
+        $(CC) ./memory/ordered_array.c      -o ./bin/ordered_array.o
         $(CC) ./memory/paging.c		        -o ./bin/paging.o -masm=intel
         $(CCNA) -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc 
 }
