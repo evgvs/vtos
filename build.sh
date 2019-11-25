@@ -99,6 +99,7 @@ make(){
         $(CC) power.c                       -o ./bin/power.o
         $(CC) interrupts.c            		-o ./bin/interrupts.o
         $(CC) tvsh.c            			-o ./bin/tvsh.o
+	$(CC) ./lib/split.c                     -o ./bin/split.o
         $(CC) ./lib/string.c          		-o ./bin/string.o
         $(CC) ./io/ports.c            		-o ./bin/ports.o
         $(CC) ./drv/keyboard.c        		-o ./bin/keyboard.o

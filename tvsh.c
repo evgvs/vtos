@@ -2,6 +2,7 @@
 #include "./memory/kheap.h"
 #include "./lib/string.h"
 #include "./power.h"
+#include "./lib/split.h"
 
 void tvsh_shell ()
 {
@@ -21,6 +22,7 @@ void tvsh_shell ()
 		// tty_printf(kgs, 0x0f);
 		//TODO: arguments
 		
+		char** args = split ( kgs , " " );
 
 		char* cmd = strtok ( kgs  , " " );
 		char* arg1= strtok ( NULL , " " );
@@ -105,27 +107,8 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "args" ) == 0 )
 		{
-			tty_printf("arg1: ", 0x0f);
-			tty_printf(arg1, 0x0f);
-			tty_printf("\n", 0x0f);
-			tty_printf("arg2: ", 0x0f);
-			tty_printf(arg2, 0x0f);
-			tty_printf("\n", 0x0f);
-			tty_printf("arg3: ", 0x0f);
-			tty_printf(arg3, 0x0f);                                               tty_printf("\n", 0x0f);
-			tty_printf("arg4: ", 0x0f);
-			tty_printf(arg4, 0x0f);                                               tty_printf("\n", 0x0f);
-			tty_printf("arg5: ", 0x0f);
-			tty_printf(arg5, 0x0f);                                               tty_printf("\n", 0x0f);
-			tty_printf("arg6: ", 0x0f);
-			tty_printf(arg6, 0x0f);                                               tty_printf("\n", 0x0f);
-			tty_printf("arg7: ", 0x0f);
-			tty_printf(arg7, 0x0f);                                               tty_printf("\n", 0x0f);
-			tty_printf("arg8: ", 0x0f);
-			tty_printf(arg8, 0x0f);                                               tty_printf("\n", 0x0f);
-			tty_printf("arg9: ", 0x0f);
-			tty_printf(arg9, 0x0f);                                               tty_printf("\n", 0x0f);
-
+			tty_printf( args[atoi(args[1])] , 0x0f );
+			tty_printf ("\n");
 		}
 		else if ( strcmp ( cmd , "logo" ) == 0 )
 		{
@@ -193,8 +176,8 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "calc" ) == 0 )
 		{
-			int c1 = atoi ( arg1 );
-			int c2 = atoi ( arg3 );
+			unsigned long long int c1 = atoi ( arg1 );
+			unsigned long long int c2 = atoi ( arg3 );
 
 			if ( strcmp ( arg2 , "+" ) == 0 )
 			{
