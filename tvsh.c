@@ -20,20 +20,11 @@ void tvsh_shell ()
 	       	strcpy ( kgs , kgo  );
 		
 		// tty_printf(kgs, 0x0f);
-		//TODO: arguments
+		//    //   //TODO: arguments
 		
 		char** args = split ( kgs , " " );
 
-		char* cmd = strtok ( kgs  , " " );
-		char* arg1= strtok ( NULL , " " );
-		char* arg2= strtok ( NULL , " " );
-		char* arg3= strtok ( NULL , " " );
-		char* arg4= strtok ( NULL , " " );
-		char* arg5= strtok ( NULL , " " );
-		char* arg6= strtok ( NULL , " " );
-		char* arg7= strtok ( NULL , " " );
-		char* arg8= strtok ( NULL , " " );
-		char* arg9= strtok ( NULL , " " );
+		char* cmd = args[0];
 
 
 
@@ -68,7 +59,7 @@ void tvsh_shell ()
 
 			tty_printf("changelog ", 0x0E);
 			tty_printf("- see what's new in this vtOS release\n", 0x0F);
-			if ( strcmp ( arg1 , "--dev" ) == 0 )
+			if ( strcmp ( args[1] , "--dev" ) == 0 )
 			{
 			tty_printf("----------------------------------\n", 0x0f);
 
@@ -92,16 +83,16 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "echo" ) == 0 )
 		{
-                        tty_printf(arg1, 0x0f);                                               tty_printf(" ", 0x0f);
-			tty_printf(arg2, 0x0f);
+                        tty_printf(args[1], 0x0f);                                               tty_printf(" ", 0x0f);
+			tty_printf(args[2], 0x0f);
                         tty_printf(" ", 0x0f);
-                        tty_printf(arg3, 0x0f);                                               tty_printf(" ", 0x0f);
-                        tty_printf(arg4, 0x0f);                                               tty_printf(" ", 0x0f);                      
-                        tty_printf(arg5, 0x0f);                                               tty_printf(" ", 0x0f);                                                tty_printf(arg6, 0x0f);                                               tty_printf(" ", 0x0f);                       
-                        tty_printf(arg7, 0x0f);
+                        tty_printf(args[3], 0x0f);                                               tty_printf(" ", 0x0f);
+                        tty_printf(args[4], 0x0f);                                               tty_printf(" ", 0x0f);                      
+                        tty_printf(args[5], 0x0f);                                               tty_printf(" ", 0x0f);                                                tty_printf(args[6], 0x0f);                                               tty_printf(" ", 0x0f);                       
+                        tty_printf(args[7], 0x0f);
                         tty_printf(" ", 0x0f);
-                        tty_printf(arg8, 0x0f);
-                        tty_printf(" ", 0x0f);                                                tty_printf(arg9, 0x0f);                                               tty_printf(" ", 0x0f);
+                        tty_printf(args[8], 0x0f);
+                        tty_printf(" ", 0x0f);                                                tty_printf(args[9], 0x0f);                                               tty_printf(" ", 0x0f);
 			tty_printf("\n", 0x0f);
 
 		}
@@ -153,8 +144,8 @@ void tvsh_shell ()
    		else if ( strcmp( cmd , "kmalloc") == 0)
     	{
       		char * a;
-			*a = (char*)kmalloc(sizeof(char) * atoi(arg1));
-      		for (int i = 0; i < atoi(arg1); i++)
+			*a = (char*)kmalloc(sizeof(char) * atoi(args[1]));
+      		for (int i = 0; i < atoi(args[1]); i++)
         		*a++ = 'q';
       		tty_printf("OK\n", 0x0f);
    		}
@@ -164,44 +155,44 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "setps1" ) == 0 )
 		{
-			if ( strcmp ( arg1 , "setps1" ) == 0 )
+			if ( strcmp ( args[1] , "setps1" ) == 0 )
 			{
 				tty_printf ( "PS1 cat't be blank.\n" , 0x0f );
 			}
 			else
 			{
-				strcpy ( PS1 , arg1 );
+				strcpy ( PS1 , args[1] );
 				tty_printf ( "Done.\n" , 0x0f );
 			}
 		}
 		else if ( strcmp ( cmd , "calc" ) == 0 )
 		{
-			unsigned long long int c1 = atoi ( arg1 );
-			unsigned long long int c2 = atoi ( arg3 );
+			unsigned long long int c1 = atoi ( args[1] );
+			unsigned long long int c2 = atoi ( args[3] );
 
-			if ( strcmp ( arg2 , "+" ) == 0 )
+			if ( strcmp ( args[2] , "+" ) == 0 )
 			{
 				tty_printf( itoa ( c1 + c2 ) , 0x0f );
 				tty_printf("\n",0x0f);
 			}
-			else if ( strcmp ( arg2 , "-" ) == 0 )
+			else if ( strcmp ( args[2] , "-" ) == 0 )
                         {
                                 tty_printf( itoa ( c1 - c2 ) , 0x0f );
                                 tty_printf("\n",0x0f);
 			}
-			else if ( strcmp ( arg2 , "*" ) == 0 )
+			else if ( strcmp ( args[2] , "*" ) == 0 )
                         {
                                 tty_printf( itoa ( c1 * c2 ) , 0x0f );
                                 tty_printf("\n",0x0f);
 			}
-			else if ( strcmp ( arg2 , "/" ) == 0 )
+			else if ( strcmp ( args[2] , "/" ) == 0 )
                         {
-				if ( strcmp ( arg3 , "0" ) == 0 )
+				if ( strcmp ( args[3] , "0" ) == 0 )
 				{
 					tty_printf ( "Error: ", 0x04 );
 					tty_printf ( "division by zero." ,0x0f);
 				}
-				else if ( strcmp ( arg3 , "/" ) == 0 )
+				else if ( strcmp ( args[3] , "/" ) == 0 )
 				{
 					tty_printf ( "Error: ", 0x04 );
 					tty_printf ( "Illegal argument." ,0x0f);
