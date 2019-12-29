@@ -1,4 +1,8 @@
-# vtOS - open source operating system 
+# PROJECT DISCONTINUED
+
+Check out the vtOS X - rewrite of classic vtOS.
+
+## vtOS - open source operating system 
 
 ## Build & run
 ```
