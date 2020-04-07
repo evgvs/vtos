@@ -4,7 +4,7 @@ setupenv() {
 	export PATH="$PATH:./i686-elf/bin/"
 	export CC="i686-elf-gcc"
 	export AS="i686-elf-as"
-    export CFLAGS="-I include -I lib/include -std=gnu99 -ffreestanding -O0  -c 
+    export CFLAGS="-I include -I lib/include -std=gnu99 -ffreestanding -O1  -c 
     -w"
 	export ASFLAGS="-W"
     export INCLUDE="-I include -I lib/include"
@@ -85,7 +85,7 @@ as() {
 }
 
 lk() {
-	i686-elf-gcc -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
+	i686-elf-gcc -T linker.ld -o vtos.bin -ffreestanding -O1 -nostdlib ./bin/*.o  -lgcc
 }
 
 main() {

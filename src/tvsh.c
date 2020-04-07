@@ -3,7 +3,8 @@
 #include <string.h>
 #include <power.h>
 #include <split.h>
-
+#include <panic.h>
+#include <info.h>
 void tvsh_shell ()
 {
 	char* PS1 = "[vtos | tvsh]$";
@@ -78,8 +79,14 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "info" ) == 0 )
 		{
-			tty_printf(vtinfo_string(), 0x0f);
-			tty_printchar('\n', 0x0f);
+			tty_printf("vtOS ", 0x0f);
+			tty_printf(VTOS_VERSION, 0x0f);
+			tty_printf(" Compiled at ", 0x0f);
+			tty_printf(__DATE__, 0x0f);
+			tty_printf(", ", 0x0f);
+			tty_printf(__TIME__, 0x0f);
+			tty_printf("\n", 0x0f);
+
 		}
 		else if ( strcmp ( cmd , "echo" ) == 0 )
 		{
@@ -99,7 +106,7 @@ void tvsh_shell ()
 		else if ( strcmp ( cmd , "args" ) == 0 )
 		{
 			tty_printf( args[atoi(args[1])] , 0x0f );
-			tty_printf ("\n");
+			tty_printf ("\n", 0x0f);
 		}
 		else if ( strcmp ( cmd , "logo" ) == 0 )
 		{
@@ -125,13 +132,13 @@ void tvsh_shell ()
 				tty_printf("enter element of array: ", 0x0f);
 				a[i] = atoi(keyboard_getstring());
 			}
-			tty_printf("your dynamic array: ");
+			tty_printf("your dynamic array: ", 0x0f);
 			for (i = 0; i<n; i++) {
 				tty_printf(itoa(a[i]), 0x0f);
 				tty_printf(" ", 0x0f);
 			}
 			free(a);
-			tty_printf("\nArray deleted. Memory cleaned.\n");
+			tty_printf("\nArray deleted. Memory cleaned.\n", 0x0f);
 		}
 		else if ( strcmp ( cmd , "panic-test" ) == 0 )
 		{
@@ -151,7 +158,7 @@ void tvsh_shell ()
    		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{
-			tty_printf("New in vtos 5.3: \ncalc command\nhiger half kernel\n", 0x0f);
+			tty_printf("New in vtos 5.4: \ncursor\nnew directory structure\n", 0x0f);
 		}
 		else if ( strcmp ( cmd , "setps1" ) == 0 )
 		{

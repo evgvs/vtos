@@ -1,4 +1,2 @@
-int vtver_int ();
-char * vtver_string();
-char * vtinfo_string();
-char * vtinfo_string_short();
+#define VTOS_VERSION "5.4"
+#define VTOS_RELEASE_DATE "Apr  7 2020"

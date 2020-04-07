@@ -9,6 +9,14 @@ int cursor_current_line = 0;
 
 volatile char *video = (volatile char*)0xC00B8000; //video memory
 
+void move_cursor(uint16_t pos)
+{
+	outb(0x3D4, 0x0F);
+	outb(0x3D5, (uint8_t) (pos & 0xFF));
+	outb(0x3D4, 0x0E);
+	outb(0x3D5, (uint8_t) ((pos >> 8) & 0xFF));
+}
+
 void display_clear(int color) 
 {
 	cursor_pos = 0;
@@ -64,23 +72,27 @@ void tty_printchar(char char1, int color)
 		cursor_pos = cursor_current_line * 80 * 2;
 		if(cursor_current_line > TERM_SIZE_Y - 1)
 			tty_scroll();
-		return;
+		move_cursor (cursor_pos / 2);
 	}
-	if ( char1 == '\b' )
+	else if ( char1 == '\b' )
 	{
 		cursor_pos -= 2;
 		video[cursor_pos++] = ' ';
 		video[cursor_pos++] = color;
 		cursor_pos -= 2;
-		return;
+		move_cursor (cursor_pos / 2);
 	}
-	if ( char1 == '\r' )
+	else if ( char1 == '\r' )
 	{
 		cursor_pos = cursor_current_line * 80 * 2;
-		return;
+		move_cursor (cursor_pos / 2);
+	} 
+	else
+	{
+		move_cursor (cursor_pos / 2);
+		video[cursor_pos++] = char1;
+		video[cursor_pos++] = color;
 	}
-	video[cursor_pos++] = char1;
-	video[cursor_pos++] = color;
 }
 
 void tty_scroll() // TODO

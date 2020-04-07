@@ -2,7 +2,7 @@
 #include <ports.h>
 #include <idt.h>
 #include <drv/video.h>
-
+#include <panic.h>
 
 static interrupt_handler_t interrupt_handlers[IDT_NUM_ENTRIES];
 
