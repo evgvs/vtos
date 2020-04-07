@@ -1,2 +1,4 @@
-*.o
+/bin
 /i686-elf
+/gcc-8.1.0-nolibc
+*.xz

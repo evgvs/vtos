@@ -1,6 +1,6 @@
-#include "./idt.h"
-#include "./drv/video.h"
-#include "./io/ports.h"
+#include <idt.h>
+#include <drv/video.h>
+#include <ports.h>
 
 #define SET_IDT_ENTRY(idx) \
     set_idt_entry(idx, (uint32_t) &interrupt_handler_##idx,\

@@ -1,7 +1,7 @@
-﻿#include "./keyboard.h"
-#include "../drv/video.h"
-#include "../interrupts.h"
-#include "../io/ports.h"
+﻿#include <drv/keyboard.h>
+#include <drv/video.h>
+#include <interrupts.h>
+#include <ports.h>
 
 //#define ARR_LENGTH(a) (a/sizeof(a[0]))
 

@@ -1,5 +1,5 @@
-#include "video.h"
-#include "../lib/string.h"
+#include <drv/video.h>
+#include <string.h>
 
 const int TERM_SIZE_X = 80;
 const int TERM_SIZE_Y = 25;

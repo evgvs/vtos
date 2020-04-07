@@ -1,5 +1,5 @@
 
-#include "./string.h"
+#include <string.h>
 
 char* s_strpbrk(char *string1, char *string2)
 {
@@ -38,7 +38,7 @@ char* s_strdup(char *src)
 
     while (src[len])
         len++;
-    str = kmalloc(len + 1);
+    str = malloc(len + 1);
     p = str;
     while (*src)
         *p++ = *src++;

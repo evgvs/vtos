@@ -1,4 +1,4 @@
-#include "./power.h"
+#include <power.h>
 
 void reboot()
 {

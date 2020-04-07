@@ -1,5 +1,5 @@
-#include "./drv/video.h"
-#include "gdt.h"
+#include <drv/video.h>
+#include <gdt.h>
  
 // Defines a GDT entry.
 struct gdt_entry

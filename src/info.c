@@ -1,4 +1,4 @@
-#include "./info.h"
+#include <info.h>
 
 int vtver_int ()
 {
@@ -12,7 +12,7 @@ char * vtver_string()
 
 char * vtinfo_string()
 {
-	return "vtOS 5.3 | build date: 22 Nov 2019";
+	return "vtOS 5.3 | build date: __DATE__";
 }
 
 char * vtinfo_string_short()

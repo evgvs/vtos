@@ -1,14 +1,13 @@
-#include "./drv/video.h"
-#include "./idt.h"
-#include "./drv/keyboard.h"
-#include "./lib/string.h"
-#include "./panic.h"
-#include "./io/ports.h"
-#include "./gdt.h"
-#include "./memory/paging.h"
-#include "./power.h"
-#include "./tvsh.h"
-#include "./common.h"
+#include <drv/video.h>
+#include <idt.h>
+#include <drv/keyboard.h>
+#include <string.h>
+#include <panic.h>
+#include <ports.h>
+#include <gdt.h>
+#include <power.h>
+#include <tvsh.h>
+#include <common.h>
 
 void kernel_init () {
 	display_clear(0x00);

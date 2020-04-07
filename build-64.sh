@@ -1,23 +1,21 @@
 #!/usr/bin/env bash
 
 setupenv() {
-	export PATH="$PATH:./i686-elf/bin/"
-	export CC="i686-elf-gcc"
-	export AS="i686-elf-as"
-    export CFLAGS="-I include -I lib/include -std=gnu99 -ffreestanding -O0  -c 
-    -w"
+	export PATH="$PATH:./gcc-8.1.0-nolibc/x86_64-linux/bin/"
+	export CC="x86_64-linux-gcc"
+	export AS="x86_64-linux-as"
+    	export CFLAGS="-I include -I lib/include -std=gnu99 -ffreestanding -O0  -c -w"
 	export ASFLAGS="-W"
-    export INCLUDE="-I include -I lib/include"
 }
 
 gcccheck() {
-	if ! [[ -d i686-elf ]]
-    then
-        echo i686-elf-tools not found.
-        echo Downloading i686-elf.tar.xz...
-        curl -LO files.vtsoft.dev/i686-elf.tar.xz
-        echo Unpacking i686-elf.tar.xz...
-        tar -xf i686-elf.tar.xz &> /dev/null
+	if ! [[ -d gcc-8.1.0-nolibc ]]
+    	then
+        	echo x86_64-cross not found.
+        	echo Downloading x86_64-cross.tar.xz...
+        	curl -LO https://files.vtsoft.dev/x86_64-cross.tar.xz
+        	echo Unpacking i686-elf.tar.xz...
+        	tar -xf x86_64-cross.tar.xz &> /dev/null
 	fi
 }
 
@@ -85,7 +83,7 @@ as() {
 }
 
 lk() {
-	i686-elf-gcc -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
+	$CC -T linker.ld -o vtos.bin -ffreestanding -O0 -nostdlib ./bin/*.o  -lgcc
 }
 
 main() {

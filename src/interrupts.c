@@ -1,7 +1,7 @@
-#include "./interrupts.h"
-#include "./io/ports.h"
-#include "./idt.h"
-#include "./drv/video.h"
+#include <interrupts.h>
+#include <ports.h>
+#include <idt.h>
+#include <drv/video.h>
 
 
 static interrupt_handler_t interrupt_handlers[IDT_NUM_ENTRIES];
