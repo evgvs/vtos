@@ -1,12 +1,9 @@
-# PROJECT DISCONTINUED
-
-Check out the [vtOS X](https://gitlab.com/vt_/vtos-x) - rewrite of classic vtOS.
-
-## vtOS - open source operating system 
+# vtOS - open source operating system 
 
 ## Build & run
 ```
-$ ./build.sh --test --iso # build and test in a qemu vm
+$ ISO=1 ./build.sh 
+qemu-system-i386 -cdrom bootable.iso
 ```
 ## Features
 *  Kernel
@@ -26,9 +23,9 @@ Make sure that legacy boot support (There is no UEFI video driver in vtOS), lega
 
 ### Make an ISO file
 ```
-$ ./build.sh --iso
+$ ISO=1./build.sh
 ```
 ### Write ISO file on disk
 ```
-$ sudo dd if=vtos.iso of=/dev/sdX
+# dd if=vtos.iso of=/dev/sdX
 ```
