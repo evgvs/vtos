@@ -1,8 +1,4 @@
-# PROJECT DISCONTINUED
-
-Check out the [vtOS X](https://gitlab.com/vt_/vtos-x) - rewrite of classic vtOS.
-
-## vtOS - open source operating system 
+# vtOS - open source operating system 
 
 ## Build & run
 ```
