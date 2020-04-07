@@ -108,14 +108,6 @@ void tvsh_shell ()
 			tty_printf( args[atoi(args[1])] , 0x0f );
 			tty_printf ("\n", 0x0f);
 		}
-		else if ( strcmp ( cmd , "logo" ) == 0 )
-		{
-			print_logo(0);
-		}
-		else if ( ( strcmp ( cmd , "vtfetch" ) == 0 ) | ( strcmp ( cmd , "logoi" ) == 0 ) )
-		{
-			print_logo(1);
-		}
 		else if ( strcmp ( cmd , "clear" ) == 0 )
 		{
 			display_clear(0x00);

@@ -89,6 +89,7 @@ lk() {
 }
 
 main() {
+    rm -r bin
 	cfiles=$( find ./ -name '*.c' ) ; log cfiles $cfiles
 	asfiles=$( find ./ -name '*.s') ; log asfiles $asfiles
     
