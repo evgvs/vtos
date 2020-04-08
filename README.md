@@ -3,7 +3,7 @@
 ## Build & run
 ```
 $ ISO=1 ./build.sh 
-qemu-system-i386 -cdrom bootable.iso
+$ qemu-system-i386 -cdrom bootable.iso
 ```
 ## Features
 *  Kernel
