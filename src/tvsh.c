@@ -158,7 +158,7 @@ void tvsh_shell ()
    		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{
-			tty_printf("New in vtos 5.4: \ncursor\nnew directory structure\n", 0x0f);
+			tty_printf("New in vtos 5.5: PID and uptime\n", 0x0f);
 		}
 		else if ( strcmp ( cmd , "setps1" ) == 0 )
 		{
