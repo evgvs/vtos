@@ -1,0 +1,3 @@
+image: alpine
+build:
+    script: ISO=1 ./build.sh
