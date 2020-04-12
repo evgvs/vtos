@@ -143,8 +143,10 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd, "uptime" ) == 0 )
 		{
-			tty_printf(itoa(timer_ticks), 0x0f);
-			tty_printchar('\n', 0x0f);
+			tty_printf(itoa(timer_ticks) , 0x0f);
+			tty_printf(" ticks = ", 0x0f);
+			tty_printf(itoa(timer_ticks/ 18.2) , 0x0f);
+			tty_printf(" seconds\n", 0x0f);
 		}
    		else if ( strcmp( cmd , "malloc") == 0)
     		{
