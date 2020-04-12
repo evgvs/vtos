@@ -5,6 +5,7 @@
 #include <split.h>
 #include <panic.h>
 #include <info.h>
+#include <pit.h>
 void tvsh_shell ()
 {
 	char* PS1 = "[vtos | tvsh]$";
@@ -140,13 +141,18 @@ void tvsh_shell ()
 		{
 			reboot();
 		}
+		else if ( strcmp ( cmd, "uptime" ) == 0 )
+		{
+			tty_printf(itoa(timer_ticks), 0x0f);
+			tty_printchar('\n', 0x0f);
+		}
    		else if ( strcmp( cmd , "malloc") == 0)
-    	{
-      		char * a;
+    		{
+      			char * a;
 			*a = (char*)malloc(sizeof(char) * atoi(args[1]));
-      		for (int i = 0; i < atoi(args[1]); i++)
-        		*a++ = 'q';
-      		tty_printf("OK\n", 0x0f);
+      			for (int i = 0; i < atoi(args[1]); i++)
+        			*a++ = 'q';
+      			tty_printf("OK\n", 0x0f);
    		}
 		else if ( strcmp ( cmd , "changelog" ) == 0 )
 		{

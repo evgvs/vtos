@@ -9,6 +9,7 @@
 #include <tvsh.h>
 #include <info.h>
 #include <common.h>
+#include <pit.h>
 
 void kernel_init () {
 	display_clear(0x00);
@@ -22,6 +23,8 @@ void kernel_init () {
 	interrupt_disable_all();
 
 	keyboard_install();
+	pit_install();
+	
 	tty_printf("Keyboard initializedn\n", 0x0B);
 
 	interrupt_enable_all();
@@ -38,7 +41,9 @@ void kernel_init () {
 	tty_printf(", ", 0x0f);
 	tty_printf(__TIME__, 0x0f);
 	tty_printf("\n", 0x0f);
-
+	
+	
+	
 	tty_printchar('\n', 0x0f);
 
 	tvsh_shell();
