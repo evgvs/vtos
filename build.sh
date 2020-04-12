@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 setupenv() {
 	export PATH="$PATH:./i686-elf/bin/"
