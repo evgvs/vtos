@@ -14,7 +14,7 @@ void panicrun(char * text, char * file, int line)
 	tty_printf(text, 0x4f);
 	tty_printf("' \n", 0x4f);
 	tty_printf("Before reporting a bug make sure you are using the latest version\n", 0x4f);
-	tty_printf("from our git repository: gitlab.com/vt_/vtos \n \n", 0x4f);
+	tty_printf("from our git repository: gitlab.com/vtsoft/vtos \n \n", 0x4f);
 	tty_printf("Press any key to reboot. \n", 0x4f);
 	keyboard_getchar();
 	reboot();

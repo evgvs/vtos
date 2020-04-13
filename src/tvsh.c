@@ -91,16 +91,24 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "echo" ) == 0 )
 		{
-                        tty_printf(args[1], 0x0f);                                               tty_printf(" ", 0x0f);
+                        tty_printf(args[1], 0x0f);
+                        tty_printf(" ", 0x0f);
 			tty_printf(args[2], 0x0f);
                         tty_printf(" ", 0x0f);
-                        tty_printf(args[3], 0x0f);                                               tty_printf(" ", 0x0f);
-                        tty_printf(args[4], 0x0f);                                               tty_printf(" ", 0x0f);                      
-                        tty_printf(args[5], 0x0f);                                               tty_printf(" ", 0x0f);                                                tty_printf(args[6], 0x0f);                                               tty_printf(" ", 0x0f);                       
+                        tty_printf(args[3], 0x0f);
+                        tty_printf(" ", 0x0f);
+                        tty_printf(args[4], 0x0f);
+                        tty_printf(" ", 0x0f);                      
+                        tty_printf(args[5], 0x0f);
+                        tty_printf(" ", 0x0f);                                            
+                        tty_printf(args[6], 0x0f);
+                        tty_printf(" ", 0x0f);                       
                         tty_printf(args[7], 0x0f);
                         tty_printf(" ", 0x0f);
                         tty_printf(args[8], 0x0f);
-                        tty_printf(" ", 0x0f);                                                tty_printf(args[9], 0x0f);                                               tty_printf(" ", 0x0f);
+                        tty_printf(" ", 0x0f);
+                        tty_printf(args[9], 0x0f);
+                        tty_printf(" ", 0x0f);
 			tty_printf("\n", 0x0f);
 
 		}
