@@ -8,5 +8,5 @@ void pit_install() {
 
 void pit_handler()
 {
-	timer_ticks++;
+	++timer_ticks;
 }
