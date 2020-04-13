@@ -23,5 +23,6 @@ void* memmove(void* , void* , size_t);
 void* memset(void*, uint8_t, size_t);
 void* memcpy(void*, const void*, size_t);
 
+char* hex2str ( int );
 
 #endif

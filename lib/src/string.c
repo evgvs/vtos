@@ -246,3 +246,76 @@ void* memmove(void* dst, void* src, size_t n)
 }
 
 
+
+// hex2str by notfurry (tvsclass@pidor.men)
+//
+//   ||    ||||||||
+//   ||    ||    ||
+//   ||    ||    ||
+//   ||||||||||||||
+//         ||
+//         || Y N O C H K O V
+//   ||||||||
+//
+
+char* hex2str ( int what )
+{
+	// printf ( "what: %X\n" , what );
+
+	int ca = 0;
+	int count = what;
+
+	//if ( count % 16 == 0 ) ca++;
+	
+	int curr=0;
+
+	while ( count )
+	{
+		curr = count % 10;
+		count /= 16;
+ 
+		for(int i = 0; i < ca; ++i)
+		{
+			curr *= 10;
+		}
+		++ca;
+	}
+
+	// ca = curr;
+
+	// printf ( "count: %d\n" , ca ); 
+	int c = 0;
+	char str[ca-1];
+	while ( ca > 0 )
+	{
+		//printf ( "ca: %d\n" , ca );
+		
+		int num = ( ( what % pow( 16 , ca ) ) - ( what % pow(16 , (ca-1) ) ) ) / pow (16 , (ca-1)); 
+
+
+		//printf ( "num: %d\n" , num );
+		if ( num == 0 ) str[c] = '0' ;
+		else if ( num == 1 ) str[c] = '1' ;
+		else if ( num == 2 ) str[c] = '2' ; 
+		else if ( num == 3 ) str[c] = '3' ; 
+		else if ( num == 4 ) str[c] = '4' ;
+		else if ( num == 5 ) str[c] = '5' ; 
+		else if ( num == 6 ) str[c] = '6' ; 
+		else if ( num == 7 ) str[c] = '7' ;
+		else if ( num == 8 ) str[c] = '8' ;
+		else if ( num == 9 ) str[c] = '9' ; 
+		else if ( num == 0xA ) str[c] = 'A' ; 
+		else if ( num == 0xB ) str[c] = 'B' ; 
+		else if ( num == 0xC ) str[c] = 'C' ;
+		else if ( num == 0xD ) str[c] = 'D' ; 
+		else if ( num == 0xE ) str[c] = 'E' ;
+		else if ( num == 0xF ) str[c] = 'F' ;
+		else { goto INVALID ; }
+		// printf ( "str[c]: %c\n" , str[c] );
+		ca--;
+		c++;
+	}
+	return str;
+INVALID:
+	return NULL;
+}
