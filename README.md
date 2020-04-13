@@ -14,6 +14,7 @@ $ qemu-system-i386 -cdrom bootable.iso
 *  Shell
 *  GRUB boot support
 *  Higer Half kernel
+*  PIT
 *  Semi-working memory manager
 
 ## Booting vtOS on real hardware
