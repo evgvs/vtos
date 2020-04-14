@@ -27,6 +27,22 @@ int atoi(const char* string)
 	return ret;
 }
 
+size_t str_bksp(char* str, char c)
+{
+	size_t i = strlen(str);
+	i--;
+	while(i)
+	{
+		i--;
+		if(str[i] == c)
+		{
+			str[i+1] = 0;
+			return 1;
+		}
+	}
+	return 0;
+}
+
 char *itoa(int i)
 {
   /* Room for INT_DIGITS digits, - and '\0' */
