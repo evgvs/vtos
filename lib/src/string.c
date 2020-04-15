@@ -285,7 +285,7 @@ char* hex2str ( int what )
 
 	// printf ( "count: %d\n" , ca ); 
 	int c = 0;
-	char str[ca-1];
+	char* str;
 	while ( ca > 0 )
 	{
 		//printf ( "ca: %d\n" , ca );
