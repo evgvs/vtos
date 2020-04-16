@@ -149,6 +149,11 @@ void tvsh_shell ()
 		{
 			reboot();
 		}
+		else if ( strcmp ( cmd , "hex" ) == 0 )
+		{
+			tty_printf( hex2str ( 0xFFF000 ) , 0x0f);
+			tty_printf ("\n" , 0x0f);
+		}
 		else if ( strcmp ( cmd, "uptime" ) == 0 )
 		{
 			tty_printf(itoa(timer_ticks) , 0x0f);
