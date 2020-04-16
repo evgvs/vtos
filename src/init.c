@@ -36,7 +36,14 @@ void kernel_init (int magic, struct multiboot_info *mboot_info) {
 	
 	if (!mboot_info->mods_count)
 		tty_printf("No modules found!\n", 0x04);
-		
+	
+	tty_printf("Free memory: ", 0x0B);
+
+	if (mboot_info->mem_upper - mboot_info->mem_lower < 1024)
+		tty_printf(strcat(itoa(mboot_info->mem_upper - mboot_info->mem_lower), "kB\n"), 0x04);
+	else
+		tty_printf(strcat(itoa(mboot_info->mem_upper - mboot_info->mem_lower), "kB\n"), 0x0a);
+
 	tty_printf("Welcome to vtOS ", 0x0f);
 	tty_printf(VTOS_VERSION, 0x0f);
 	if (VTOS_TESTING)
