@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 setupenv() {
-	export PATH="$PATH:./i686-elf/bin/"
+	#export PATH="$PATH:./i686-elf/bin/"
 	export CC="i686-elf-gcc"
 	export AS="i686-elf-as"
     export CFLAGS="-I include -I lib/include -std=gnu99 -ffreestanding -O1  -c 
@@ -60,7 +60,7 @@ cc() {
 		
         echo -e "\e[2m[compiling]\e[22m \e[34m$file\e[39m => \e[36m$wo1.o\e[39m"
 
-        $CC $CFLAGS $file -o ./bin/$wo1.o
+        ./i686-elf/bin/$CC $CFLAGS $file -o ./bin/$wo1.o
 	done
 }
 
@@ -80,12 +80,12 @@ as() {
 		
         echo -e "\e[2m[compiling]\e[22m \e[34m$file\e[39m => \e[36m$wo1.o\e[39m"
 
-		$AS $ASFLAGS $file -o ./bin/$wo1.o
+		./i686-elf/bin/$AS $ASFLAGS $file -o ./bin/$wo1.o
 	done
 }
 
 lk() {
-	i686-elf-gcc -T linker.ld -o vtos.bin -ffreestanding -O1 -nostdlib ./bin/*.o  -lgcc
+	./i686-elf/bin/$CC -T linker.ld -o vtos.bin -ffreestanding -O1 -nostdlib ./bin/*.o  -lgcc
 }
 
 main() {

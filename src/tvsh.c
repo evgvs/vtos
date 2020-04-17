@@ -123,7 +123,7 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "malloc-test" ) == 0 )
 		{
-			int *a;  
+			int *a;
 			int i, n;
 			tty_printf("enter int array size: ",0x0f);
 			n = atoi(keyboard_getstring());
