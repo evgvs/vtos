@@ -40,9 +40,10 @@ void kernel_init (int magic, struct multiboot_info *mboot_info) {
 	tty_printf("Free memory: ", 0x0B);
 
 	if (mboot_info->mem_upper - mboot_info->mem_lower < 1024)
-		tty_printf(strcat(itoa(mboot_info->mem_upper - mboot_info->mem_lower), "kB\n"), 0x04);
+		tty_printf(itoa(mboot_info->mem_upper - mboot_info->mem_lower), 0x04);
 	else
-		tty_printf(strcat(itoa(mboot_info->mem_upper - mboot_info->mem_lower), "kB\n"), 0x0a);
+		tty_printf(itoa(mboot_info->mem_upper - mboot_info->mem_lower), 0x0a);
+	tty_printf("kB\n", 0x0a);
 
 	tty_printf("Welcome to vtOS ", 0x0f);
 	tty_printf(VTOS_VERSION, 0x0f);
@@ -54,7 +55,6 @@ void kernel_init (int magic, struct multiboot_info *mboot_info) {
 	tty_printf(__DATE__, 0x0f);
 	tty_printf(", ", 0x0f);
 	tty_printf(__TIME__, 0x0f);
-	tty_printf("\n", 0x0f);
 	
 	tty_printchar('\n', 0x0f);
 
