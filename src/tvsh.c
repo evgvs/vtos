@@ -63,6 +63,9 @@ void tvsh_shell ()
 
 			tty_printf("changelog ", 0x0E);
 			tty_printf("- see what's new in this vtOS release\n", 0x0F);
+
+			tty_printf("uptime ", 0x0E);
+			tty_printf("- show system uptime\n", 0x0F);
 			if ( strcmp ( args[1] , "--dev" ) == 0 )
 			{
 			tty_printf("----------------------------------\n", 0x0f);
