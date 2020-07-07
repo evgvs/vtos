@@ -1,5 +1,6 @@
 #include <drv/video.h>
 #include <string.h>
+#include <ports.h>
 
 const int TERM_SIZE_X = 80;
 const int TERM_SIZE_Y = 25;
@@ -8,6 +9,8 @@ int cursor_pos = 0;
 int cursor_current_line = 0;
 
 volatile char *video = (volatile char*)0xC00B8000; //video memory
+
+void tty_scroll(void);
 
 void move_cursor(uint16_t pos)
 {
@@ -109,5 +112,4 @@ void tty_scroll() // TODO
 		cursor_pos = 3840;
 		cursor_current_line = 24;
 	}
-
 }

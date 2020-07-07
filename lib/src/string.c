@@ -2,7 +2,7 @@
 #include <memory.h>
 #include <stdint.h>
 #include <stdbool.h>
-
+#include <math.h>
 #define isdigit(c) ((c)>='0' && (c)<='9') ? 1 : 0
 
 size_t strlen(const char* str)

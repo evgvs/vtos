@@ -6,6 +6,8 @@
 #include <panic.h>
 #include <info.h>
 #include <pit.h>
+#include <drv/keyboard.h>
+#include <drv/video.h>
 void tvsh_shell ()
 {
 	char* PS1 = "[vtos | tvsh]$";

@@ -1,1 +1,1 @@
-int pow ( int );
+int pow(int a , int b);

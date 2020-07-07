@@ -4,8 +4,7 @@ setupenv() {
 	#export PATH="$PATH:./i686-elf/bin/"
 	export CC="i686-elf-gcc"
 	export AS="i686-elf-as"
-    export CFLAGS="-I include -I lib/include -std=gnu99 -ffreestanding -O1  -c 
-    -w"
+    export CFLAGS="-I include -I lib/include -std=gnu99 -ffreestanding -O1 -c"
 	export ASFLAGS="-W"
     export INCLUDE="-I include -I lib/include"
 }
@@ -60,7 +59,7 @@ cc() {
 		
         echo -e "\e[2m[compiling]\e[22m \e[34m$file\e[39m => \e[36m$wo1.o\e[39m"
 
-        ./i686-elf/bin/$CC $CFLAGS $file -o ./bin/$wo1.o
+        ./i686-elf/bin/$CC $CFLAGS $file -o ./bin/$wo1.o 2>> .cc-logs
 	done
 }
 
@@ -89,7 +88,7 @@ lk() {
 }
 
 main() {
-    rm -r bin
+    rm -r bin .cc-logs
 	cfiles=$( find ./ -name '*.c' ) ; log cfiles $cfiles
 	asfiles=$( find ./ -name '*.s') ; log asfiles $asfiles
     
@@ -99,6 +98,8 @@ main() {
 	as $asfiles
     lk  
     
+    echo "total warnings count:" $(cat .cc-logs | grep "warning:" | wc -l)
+
     if [[ $ISO -eq 1 ]]
     then
         cp ./vtos.bin isofiles
