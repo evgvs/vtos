@@ -1,4 +1,4 @@
-
+#include <memory.h>
 #include <string.h>
 
 char* s_strpbrk(char *string1, char *string2)

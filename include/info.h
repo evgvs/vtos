@@ -1,2 +1,3 @@
-#define VTOS_VERSION "5.5"
-#define VTOS_RELEASE_DATE "Apr 13 2020"
+#define VTOS_VERSION "6.1"
+#define VTOS_RELEASE_DATE "Jul 7 2020"
+#define VTOS_TESTING 1

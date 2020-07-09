@@ -1,3 +1,7 @@
 image: alpine
 build:
     script: apk update && apk add bash curl && ./build.sh
+    artifacts:
+        paths:
+        - vtos.bin
+        expire_in: 1 week

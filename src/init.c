@@ -10,8 +10,10 @@
 #include <info.h>
 #include <common.h>
 #include <pit.h>
+#include <multiboot.h>
+#include <fs/fs.h>
 
-void kernel_init () {
+void kernel_init (int magic, struct multiboot_info *mboot_info) {
 	display_clear(0x00);
 	tty_printchar('\n', 0x0f);
 	tty_printf("Display initialized\n", 0x0B);
@@ -29,20 +31,30 @@ void kernel_init () {
 
 	interrupt_enable_all();
 	tty_printf("Interrupts enabled\n", 0x0B);
+	
+	fs_init();
+	
+	if (!mboot_info->mods_count)
+		tty_printf("No modules found!\n", 0x04);
+	
+	tty_printf("Free memory: ", 0x0B);
 
-	//initialise_paging(); //paging is already enabled in higer half
+	if (mboot_info->mem_upper - mboot_info->mem_lower < 1024)
+		tty_printf(itoa(mboot_info->mem_upper - mboot_info->mem_lower), 0x04);
+	else
+		tty_printf(itoa(mboot_info->mem_upper - mboot_info->mem_lower), 0x0a);
+	tty_printf("kB\n", 0x0a);
 
 	tty_printf("Welcome to vtOS ", 0x0f);
 	tty_printf(VTOS_VERSION, 0x0f);
+	if (VTOS_TESTING)
+		tty_printf(" (testing)", 0xE);
 	tty_printf("!\n", 0x0f);
 	
 	tty_printf("Compiled at ", 0x0f);
 	tty_printf(__DATE__, 0x0f);
 	tty_printf(", ", 0x0f);
 	tty_printf(__TIME__, 0x0f);
-	tty_printf("\n", 0x0f);
-	
-	
 	
 	tty_printchar('\n', 0x0f);
 

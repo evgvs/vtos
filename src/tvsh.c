@@ -6,6 +6,8 @@
 #include <panic.h>
 #include <info.h>
 #include <pit.h>
+#include <drv/keyboard.h>
+#include <drv/video.h>
 void tvsh_shell ()
 {
 	char* PS1 = "[vtos | tvsh]$";
@@ -61,6 +63,9 @@ void tvsh_shell ()
 
 			tty_printf("changelog ", 0x0E);
 			tty_printf("- see what's new in this vtOS release\n", 0x0F);
+
+			tty_printf("uptime ", 0x0E);
+			tty_printf("- show system uptime\n", 0x0F);
 			if ( strcmp ( args[1] , "--dev" ) == 0 )
 			{
 			tty_printf("----------------------------------\n", 0x0f);
@@ -123,7 +128,7 @@ void tvsh_shell ()
 		}
 		else if ( strcmp ( cmd , "malloc-test" ) == 0 )
 		{
-			int *a;  
+			int *a;
 			int i, n;
 			tty_printf("enter int array size: ",0x0f);
 			n = atoi(keyboard_getstring());

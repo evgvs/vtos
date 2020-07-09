@@ -1,5 +1,5 @@
 #include <power.h>
-
+#include <ports.h>
 void reboot()
 {
 	asm("cli");

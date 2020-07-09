@@ -2,7 +2,7 @@
 #include <memory.h>
 #include <stdint.h>
 #include <stdbool.h>
-
+#include <math.h>
 #define isdigit(c) ((c)>='0' && (c)<='9') ? 1 : 0
 
 size_t strlen(const char* str)
@@ -25,6 +25,22 @@ int atoi(const char* string)
 		string++;
 	}
 	return ret;
+}
+
+size_t str_bksp(char* str, char c)
+{
+	size_t i = strlen(str);
+	i--;
+	while(i)
+	{
+		i--;
+		if(str[i] == c)
+		{
+			str[i+1] = 0;
+			return 1;
+		}
+	}
+	return 0;
 }
 
 char *itoa(int i)

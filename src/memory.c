@@ -80,6 +80,6 @@ void free(void *ptr)
 
 size_t init_memory()
 {
-    heap_ptr = 0x1000000;
+    heap_ptr = (uint8_t*)0x1000000;
     memset(blocks, 0, sizeof(block) * 1024);
 }
