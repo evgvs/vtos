@@ -14,7 +14,7 @@ gcccheck() {
     then
         echo i686-elf-tools not found.
         echo Downloading i686-elf.tar.xz...
-        curl -LO files.vtsoft.dev/i686-elf.tar.xz
+        curl -LO https://files.evgvs.com/cc/i686-elf.tar.xz
         echo Unpacking i686-elf.tar.xz...
         tar -xf i686-elf.tar.xz &> /dev/null
 	fi
