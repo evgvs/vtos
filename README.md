@@ -1,10 +1,14 @@
-# vtOS - open source operating system 
+# vtOS-OSS-2020
+My cringe osdev project from the good old times (2019-2020), with contributions from `tvsclass`: build script, "shell", some string functions and other. There was a version with initrd support, but it was never pushed into git. Posted on github because vtOS brings me a lot of pleasant nostalgic memories. In fact, this is my first project in C language, I was young and naive, had stolen a little bit of code and made my own "operating system".
 
-## Build & run
+Build kernel and run vtOS (to create ISO file, run `ISO=1 ./build.sh`):
 ```
-$ ISO=1 ./build.sh 
-$ qemu-system-i386 -cdrom bootable.iso
+git clone https://github.com/evgvs/vtos
+cd vtos
+./build.sh 
+qemu-system-i386 -kernel vtos.bin
 ```
+
 ## Features
 *  Kernel
 *  Print color text on screen
@@ -16,17 +20,10 @@ $ qemu-system-i386 -cdrom bootable.iso
 *  Higer Half kernel
 *  PIT
 *  Semi-working memory manager
+*  VFS
 
-## Booting vtOS on real hardware
-
-#### Modern PCs
-Make sure that legacy boot support (There is no UEFI video driver in vtOS), legacy usb support and something like "Port 60/64 Emulation" are enabled.
-
-### Make an ISO file
-```
-$ ISO=1./build.sh
-```
-### Write ISO file on disk
-```
-# dd if=vtos.iso of=/dev/sdX
-```
+## Real hardware
+Enable following in BIOS:
+* Legacy boot
+* Legacy USB
+* Port 60/64 Emulation
